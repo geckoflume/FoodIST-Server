@@ -11,8 +11,6 @@ import {
   param,
   get,
   getModelSchemaRef,
-  patch,
-  put,
   del,
   requestBody,
 } from '@loopback/rest';
@@ -84,28 +82,6 @@ export class DishController {
     return this.dishRepository.find(filter);
   }
 
-  @patch('/dishes', {
-    responses: {
-      '200': {
-        description: 'Dish PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
-      },
-    },
-  })
-  async updateAll(
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Dish, {partial: true}),
-        },
-      },
-    })
-    dish: Dish,
-    @param.where(Dish) where?: Where<Dish>,
-  ): Promise<Count> {
-    return this.dishRepository.updateAll(dish, where);
-  }
-
   @get('/dishes/{id}', {
     responses: {
       '200': {
@@ -123,41 +99,6 @@ export class DishController {
     @param.filter(Dish, {exclude: 'where'}) filter?: FilterExcludingWhere<Dish>
   ): Promise<Dish> {
     return this.dishRepository.findById(id, filter);
-  }
-
-  @patch('/dishes/{id}', {
-    responses: {
-      '204': {
-        description: 'Dish PATCH success',
-      },
-    },
-  })
-  async updateById(
-    @param.path.number('id') id: number,
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Dish, {partial: true}),
-        },
-      },
-    })
-    dish: Dish,
-  ): Promise<void> {
-    await this.dishRepository.updateById(id, dish);
-  }
-
-  @put('/dishes/{id}', {
-    responses: {
-      '204': {
-        description: 'Dish PUT success',
-      },
-    },
-  })
-  async replaceById(
-    @param.path.number('id') id: number,
-    @requestBody() dish: Dish,
-  ): Promise<void> {
-    await this.dishRepository.replaceById(id, dish);
   }
 
   @del('/dishes/{id}', {

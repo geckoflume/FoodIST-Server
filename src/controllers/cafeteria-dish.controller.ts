@@ -11,7 +11,6 @@ import {
   getModelSchemaRef,
   getWhereSchemaFor,
   param,
-  patch,
   post,
   requestBody,
 } from '@loopback/rest';
@@ -68,29 +67,6 @@ export class CafeteriaDishController {
     }) dish: Omit<Dish, 'id'>,
   ): Promise<Dish> {
     return this.cafeteriaRepository.dishes(id).create(dish);
-  }
-
-  @patch('/cafeterias/{id}/dishes', {
-    responses: {
-      '200': {
-        description: 'Cafeteria.Dish PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
-      },
-    },
-  })
-  async patch(
-    @param.path.number('id') id: number,
-    @requestBody({
-      content: {
-        'application/json': {
-          schema: getModelSchemaRef(Dish, {partial: true}),
-        },
-      },
-    })
-    dish: Partial<Dish>,
-    @param.query.object('where', getWhereSchemaFor(Dish)) where?: Where<Dish>,
-  ): Promise<Count> {
-    return this.cafeteriaRepository.dishes(id).patch(dish, where);
   }
 
   @del('/cafeterias/{id}/dishes', {
