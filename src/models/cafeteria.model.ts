@@ -1,5 +1,6 @@
-import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Entity, model, property, hasMany, hasOne} from '@loopback/repository';
 import {Dish} from './dish.model';
+import {WaitTime} from './wait-time.model';
 
 @model()
 export class Cafeteria extends Entity {
@@ -13,6 +14,9 @@ export class Cafeteria extends Entity {
 
   @hasMany(() => Dish)
   dishes: Dish[];
+
+  @hasOne(() => WaitTime)
+  waitTime: WaitTime;
 
   constructor(data?: Partial<Cafeteria>) {
     super(data);

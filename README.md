@@ -19,7 +19,6 @@ npm run clean && npm run build
 
 ## How to start
 
-Run
 ```shell script
 npm start
 ```
@@ -29,7 +28,7 @@ The server will be started on http://localhost:3000/.
 
 Get the available API on http://localhost:3000/explorer and the OpenAPI on http://localhost:3000/openapi.json.
 
-Exhaustive enpoint list:
+Exhaustive endpoint list:
 - GET /cafeterias​/count
 - GET /cafeterias
 - POST /cafeterias​/{id}​/dishes
