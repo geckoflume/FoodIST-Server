@@ -8,13 +8,16 @@ Meant to be used with the FoodIST android application, to provide ability to cro
 
 ## Prerequisites
 
-- Node.js >v10
+- Node.js >=v10
 
 ## How to build
 
 ```shell script
 npm i -g @loopback/cli
 npm run clean && npm run build
+openssl req \
+       -newkey rsa:2048 -nodes -keyout key.pem \
+       -x509 -days 365 -out cert.pem
 ```
 
 ## How to start

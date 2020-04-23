@@ -39,9 +39,8 @@ export class CafeteriaDishController {
   })
   async find(
     @param.path.number('id') id: number,
-    @param.query.object('filter') filter?: Filter<Dish>,
   ): Promise<Dish[]> {
-    return this.cafeteriaRepository.dishes(id).find(filter);
+    return this.cafeteriaRepository.dishes(id).find();
   }
 
   @post('/cafeterias/{id}/dishes', {

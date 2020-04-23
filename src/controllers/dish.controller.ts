@@ -76,10 +76,8 @@ export class DishController {
       },
     },
   })
-  async find(
-    @param.filter(Dish) filter?: Filter<Dish>,
-  ): Promise<Dish[]> {
-    return this.dishRepository.find(filter);
+  async find(): Promise<Dish[]> {
+    return this.dishRepository.find();
   }
 
   @get('/dishes/{id}', {
@@ -95,10 +93,9 @@ export class DishController {
     },
   })
   async findById(
-    @param.path.number('id') id: number,
-    @param.filter(Dish, {exclude: 'where'}) filter?: FilterExcludingWhere<Dish>
+    @param.path.number('id') id: number
   ): Promise<Dish> {
-    return this.dishRepository.findById(id, filter);
+    return this.dishRepository.findById(id);
   }
 
   @del('/dishes/{id}', {

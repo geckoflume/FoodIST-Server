@@ -39,9 +39,8 @@ export class CafeteriaWaitTimeController {
   })
   async get(
     @param.path.number('id') id: number,
-    @param.query.object('filter') filter?: Filter<WaitTime>,
   ): Promise<WaitTime> {
-    return this.cafeteriaRepository.waitTime(id).get(filter);
+    return this.cafeteriaRepository.waitTime(id).get();
   }
 
   @post('/cafeterias/{id}/wait-time', {

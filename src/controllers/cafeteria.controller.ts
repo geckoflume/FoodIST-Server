@@ -52,9 +52,7 @@ export class CafeteriaController {
       },
     },
   })
-  async find(
-    @param.filter(Cafeteria) filter?: Filter<Cafeteria>,
-  ): Promise<Cafeteria[]> {
-    return this.cafeteriaRepository.find(filter);
+  async find(): Promise<Cafeteria[]> {
+    return this.cafeteriaRepository.find();
   }
 }
