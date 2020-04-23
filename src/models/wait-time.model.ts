@@ -12,9 +12,21 @@ export class WaitTime extends Entity {
 
   @property({
     type: 'number',
-    required: true,
+    required: false,
   })
   time: number;
+
+  @property({
+    type: 'Date',
+    required: true,
+  })
+  arrival: Date;
+
+  @property({
+    type: 'Date',
+    required: false,
+  })
+  departure: Date;
 
   @belongsTo(() => Cafeteria)
   cafeteriaId: number;
