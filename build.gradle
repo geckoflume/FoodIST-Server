@@ -1,7 +1,12 @@
-apply plugin: 'java'
+plugins {
+    id 'java'
+    id 'application'
+}
 
 group 'pt.ulisboa.tecnico.cmov.foodist.server'
 version '1.0-SNAPSHOT'
+
+mainClassName = "pt.ulisboa.tecnico.cmov.foodist.server.Server"
 
 targetCompatibility = 1.8
 sourceCompatibility = 1.8

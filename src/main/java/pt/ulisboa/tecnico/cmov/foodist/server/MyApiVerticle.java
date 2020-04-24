@@ -1,3 +1,5 @@
+package pt.ulisboa.tecnico.cmov.foodist.server;
+
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.logging.Logger;
@@ -29,7 +31,7 @@ public class MyApiVerticle extends AbstractVerticle {
         });
 
         // Endpoints
-        router.get("/").handler(event -> event.response().end("Welcome to FoodIST REST Server!"));
+        router.get("/").handler(event -> event.response().end("Welcome to FoodIST REST pt.ulisboa.tecnico.cmov.foodist.server.Server!"));
 
         // Dishes endpoints
         final DishResource dishResource = new DishResource();
