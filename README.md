@@ -3,46 +3,35 @@ FoodIST: Finding food on campus
 
 ## Specifications
 
-FoodIST server module, providing a REST API, based on LoopBack4.  
+FoodIST server module, providing a REST API, based on Eclipse Vert.x v3.9.  
 Meant to be used with the FoodIST android application, to provide ability to crowdsource cafeteria menus and queue wait times.
 
 ## Prerequisites
 
-- Node.js >=v10
+- Java >=8
+- Gradle
 
 ## How to build
 
 ```shell script
-npm i -g @loopback/cli
-npm run clean && npm run build
 openssl req \
-       -newkey rsa:2048 -nodes -keyout key.pem \
-       -x509 -days 365 -out cert.pem
+       -newkey rsa:2048 -nodes -keyout server-key.pem \
+       -x509 -days 365 -out server-cert.pem
+gradlew build
 ```
 
 ## How to start
 
 ```shell script
-npm start
+gradlew run
 ```
-The server will be started on http://localhost:3000/.
+The server will be started on https://localhost:3000/.
 
-## How to use / Endpoints
+## Endpoints
 
-Get the available API on http://localhost:3000/explorer and the OpenAPI on http://localhost:3000/openapi.json.
+### Exhaustive endpoint list:
 
-Exhaustive endpoint list:
-- GET /cafeterias​/count
-- GET /cafeterias
-- POST /cafeterias​/{id}​/dishes
-- GET /cafeterias​/{id}​/dishes
-- DELETE /cafeterias​/{id}​/dishes
-- GET /dishes​/count
-- GET /dishes​/{id}
-- DELETE /dishes​/{id}
-- POST /dishes
-- GET /dishes  
 
 <p align="center">
-  <a href="http://loopback.io/"><img src="https://loopback.io/images/branding/powered-by-loopback/blue/powered-by-loopback-sm.png" alt="LoopBack"/></a>
+  <a href="https://vertx.io/"><img src="https://github.com/vert-x3/vertx-web-site/raw/master/src/site/assets/logo-sm.png" alt="Vert.x"/></a>
 </p>
