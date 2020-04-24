@@ -3,8 +3,6 @@ package pt.ulisboa.tecnico.cmov.foodist.server.resource;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
-import io.vertx.core.logging.Logger;
-import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
@@ -14,7 +12,6 @@ import pt.ulisboa.tecnico.cmov.foodist.server.service.DishService;
 import java.util.List;
 
 public class DishResource {
-    private static final Logger LOGGER = LoggerFactory.getLogger(DishResource.class);
     private final DishService dishService = new DishService();
 
     public Router getSubRouter(final Vertx vertx) {
@@ -66,7 +63,7 @@ public class DishResource {
         final Integer cafeteriaId = body.getInteger("cafeteria-id");
         final String name = body.getString("name");
         final Double price = body.getDouble("price");
-        if (cafeteriaId == null || name ==null || price == null) {
+        if (cafeteriaId == null || name == null || price == null) {
             final JsonObject errorJsonResponse = new JsonObject();
             errorJsonResponse.put("error", "Invalid request");
 
@@ -91,7 +88,7 @@ public class DishResource {
         final Integer cafeteriaId = body.getInteger("cafeteria-id");
         final String name = body.getString("name");
         final Double price = body.getDouble("price");
-        if (cafeteriaId == null || name ==null || price == null) {
+        if (cafeteriaId == null || name == null || price == null) {
             final JsonObject errorJsonResponse = new JsonObject();
             errorJsonResponse.put("error", "Invalid request");
 

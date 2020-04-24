@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DishService {
-    private final Map<Integer, Dish> dishes = new HashMap<Integer, Dish>();
+    private final Map<Integer, Dish> dishes = new HashMap<>();
     private Integer currentDishId = 0;
 
     public DishService() {
@@ -27,6 +27,15 @@ public class DishService {
 
     public Dish findById(final Integer id) {
         return dishes.get(id);
+    }
+
+    public List<Dish> findByCafeteriaId(final Integer cafeteriaId) {
+        List<Dish> cafeteriaDishes = new ArrayList<>();
+        for (Map.Entry<Integer, Dish> dish : dishes.entrySet()) {
+            if (dish.getValue().getCafeteriaId() == cafeteriaId)
+                cafeteriaDishes.add(dish.getValue());
+        }
+        return cafeteriaDishes;
     }
 
     public Dish update(final Dish dish) {

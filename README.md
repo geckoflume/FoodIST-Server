@@ -8,7 +8,7 @@ Meant to be used with the FoodIST android application, it provides ability to cr
 
 ## Prerequisites
 
-- Java >=8
+- Java JDK 8+
 - Gradle
 
 ## How to build
@@ -17,20 +17,33 @@ Meant to be used with the FoodIST android application, it provides ability to cr
 openssl req \
        -newkey rsa:2048 -nodes -keyout server-key.pem \
        -x509 -days 365 -out server-cert.pem
-gradlew build
+/.gradlew build
 ```
 
 ## How to start
 
 ```shell script
-gradlew run
+./gradlew run
 ```
 The server will be started on https://localhost:3000/.
 
 ## Endpoints
 
-### Exhaustive endpoint list:
-TODO
+### Dishes
+| Method | Endpoint                       |
+|:------ |:------------------------------ |
+| GET    | /api/v1/dishes                 |
+| POST   | /api/v1/dishes                 |
+| GET    | /api/v1/dishes/{id}            |
+| DELETE | /api/v1/dishes/{id}            |
+
+### Cafeterias
+| Method | Endpoint                       |
+|:------ |:------------------------------ |
+| GET    | /api/v1/cafeterias             |
+| GET    | /api/v1/cafeterias/{id}             |
+| GET    | /api/v1/cafeterias/{id}/dishes |
+
 
 <p align="center">
   <a href="https://vertx.io/"><img src="https://github.com/vert-x3/vertx-web-site/raw/master/src/site/assets/logo-sm.png" alt="Vert.x"/></a>
