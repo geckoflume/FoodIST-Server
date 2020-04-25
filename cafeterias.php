@@ -2,13 +2,11 @@
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-
-include_once 'config/database.php';
-include_once 'entities/cafeteria.php';
+include_once 'entities/CafeteriaEntity.php';
 
 function getCafeterias()
 {
-    $cafeteria = new Cafeteria();
+    $cafeteria = new CafeteriaEntity();
 
     // query cafeterias
     $stmt = $cafeteria->fetchAll();
@@ -42,7 +40,7 @@ function getCafeterias()
 
 function getCafeteria($id)
 {
-    $cafeteria = new Cafeteria();
+    $cafeteria = new CafeteriaEntity();
 
     // query cafeterias
     $stmt = $cafeteria->fetch($id);

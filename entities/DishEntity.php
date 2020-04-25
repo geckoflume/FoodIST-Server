@@ -1,29 +1,15 @@
 <?php
 
-class Dish
+class DishEntity extends BaseEntity
 {
-    private $conn;
-    private $table_name = "dishes";
-
-    public $id;
     public $cafeteria_id;
     public $name;
     public $price;
 
     public function __construct()
     {
-        $db = new Database();
-        $this->conn = $db->getConnection();
-    }
-
-    function fetchAll()
-    {
-        $query = "SELECT * FROM " . $this->table_name;
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-
-        return $stmt;
+        parent::__construct();
+        $this->table_name = "dishes";
     }
 
     function fetchAllByCafeteria($cafeteria_id)
@@ -64,27 +50,5 @@ class Dish
         } else {
             return false;
         }
-    }
-
-    function fetch($id)
-    {
-        $query = "SELECT * FROM " . $this->table_name . " WHERE id = :id";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":id", $id);
-        $stmt->execute();
-
-        return $stmt;
-    }
-
-    function delete($id)
-    {
-        $query = "DELETE FROM " . $this->table_name . " WHERE id = :id";
-
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(":id", $id);
-        $stmt->execute();
-
-        return $stmt;
     }
 }

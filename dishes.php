@@ -2,12 +2,11 @@
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-include_once 'config/database.php';
-include_once 'entities/dish.php';
+require 'entities/DishEntity.php';
 
 function getDishes()
 {
-    $dish = new Dish();
+    $dish = new DishEntity();
 
     // query dishes
     $stmt = $dish->fetchAll();
@@ -45,7 +44,7 @@ function getDishes()
 }
 
 function getDishesByCafeteria($id) {
-    $dish = new Dish();
+    $dish = new DishEntity();
 
     // query dishes
     $stmt = $dish->fetchAllByCafeteria($id);
@@ -76,13 +75,13 @@ function getDishesByCafeteria($id) {
         }
         return new JsonResponse($dishes_arr, 200);
     } else {
-        return new JsonResponse(array("message" => "No dishes found."), 404);
+        return new JsonResponse(array("message" => "No dishes found for this cafeteria."), 404);
     }
 }
 
 function getDish($id)
 {
-    $dish = new Dish();
+    $dish = new DishEntity();
 
     // query dishes
     $stmt = $dish->fetch($id);
@@ -97,9 +96,9 @@ function getDish($id)
     }
 }
 
-function postDishes($data)
+function postDish($data)
 {
-    $dish = new Dish();
+    $dish = new DishEntity();
 
     if (!empty($data["cafeteria_id"]) && !empty($data["name"]) && !empty($data["price"])) {
         $dish->cafeteria_id = $data["cafeteria_id"];
@@ -121,7 +120,7 @@ function postDishes($data)
 
 function deleteDish($id)
 {
-    $dish = new Dish();
+    $dish = new DishEntity();
 
     // query dishes
     $stmt = $dish->delete($id);

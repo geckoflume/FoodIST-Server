@@ -15,7 +15,7 @@ Meant to be used with the FoodIST Android application, it provides ability to cr
 
 ## How to configure
 
-- Load the [config/database.php](config/database.php) script in your corresponding database.
+- Load the [config/database.php](config/Database.php) script in your corresponding database.
 - Then, setup the [database.sql](init.sql) using your database connexion data.
 - Finally, configure your web server :
 
