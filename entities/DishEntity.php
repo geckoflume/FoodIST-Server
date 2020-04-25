@@ -32,9 +32,7 @@ class DishEntity extends BaseEntity
         $stmt = $this->conn->prepare($query);
 
         // sanitize
-        $this->cafeteria_id = htmlspecialchars(strip_tags($this->cafeteria_id));
         $this->name = htmlspecialchars(strip_tags($this->name));
-        $this->price = htmlspecialchars(strip_tags($this->price));
 
         $stmt->bindParam(":cafeteria_id", $this->cafeteria_id);
         $stmt->bindParam(":name", $this->name);
@@ -50,5 +48,23 @@ class DishEntity extends BaseEntity
         } else {
             return false;
         }
+    }
+
+    function updateDish() {
+        $query = "UPDATE " . $this->table_name . " SET cafeteria_id = :cafeteria_id, name = :name, price = :price WHERE id = :id";
+
+        $stmt = $this->conn->prepare($query);
+
+        // sanitize
+        $this->name = htmlspecialchars(strip_tags($this->name));
+
+        $stmt->bindParam(":id", $this->id);
+        $stmt->bindParam(":cafeteria_id", $this->cafeteria_id);
+        $stmt->bindParam(":name", $this->name);
+        $stmt->bindParam(":price", $this->price);
+
+        $stmt->execute();
+
+        return $stmt;
     }
 }

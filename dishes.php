@@ -43,7 +43,8 @@ function getDishes()
     }
 }
 
-function getDishesByCafeteria($id) {
+function getDishesByCafeteria($id)
+{
     $dish = new DishEntity();
 
     // query dishes
@@ -105,10 +106,11 @@ function postDish($data)
         $dish->name = $data["name"];
         $dish->price = $data["price"];
 
-        // create the dish
         $dish = $dish->insertDish();
         if ($dish) {
-            return new JsonResponse($dish, 201);;
+            $r = new JsonResponse($dish, 201);
+            $r->setEncodingOptions(JSON_NUMERIC_CHECK);
+            return $r;
         } // if unable to create the dish
         else {
             return new JsonResponse(array("message" => "Unable to create dish. Please check that this cafeteria exists."), 503);
@@ -118,16 +120,42 @@ function postDish($data)
     }
 }
 
+function updateDish($data, $id)
+{
+    $dish = new DishEntity();
+
+    if (!empty($id) && (!empty($data["cafeteria_id"]) || !empty($data["name"]) || !empty($data["price"]))) {
+        $dish->id = $id;
+        $dish->cafeteria_id = $data["cafeteria_id"];
+        $dish->name = $data["name"];
+        $dish->price = $data["price"];
+
+        $stmt = $dish->updateDish();
+
+        if ($stmt->rowCount() == 1) {
+            $dish = array(
+                "id" => $dish->id,
+                "cafeteria_id" => $dish->cafeteria_id,
+                "name" => $dish->name,
+                "price" => $dish->price
+            );
+            $r = new JsonResponse($dish, 200);
+            $r->setEncodingOptions(JSON_NUMERIC_CHECK);
+            return $r;
+        } else {
+            return new JsonResponse(array("message" => "No dish found. This dish was not updated."), 404);
+        }
+    }
+}
+
 function deleteDish($id)
 {
     $dish = new DishEntity();
 
-    // query dishes
     $stmt = $dish->delete($id);
-    $num = $stmt->rowCount();
 
     // check if more than 0 record found
-    if ($num == 1) {
+    if ($stmt->rowCount() == 1) {
         return new JsonResponse(array("message" => "Dish deleted."), 200);
     } else {
         return new JsonResponse(array("message" => "No dish found. This dish was not deleted."), 404);

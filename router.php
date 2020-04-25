@@ -39,6 +39,11 @@ $app->get('/api/dishes/{id}', function ($id) use ($app) {
     return getDish($id);
 })->assert('id', '\d+');
 
+$app->put('/api/dishes/{id}', function (Request $request, $id) use ($app) {
+    $data = $request->request->all();
+    return updateDish($data, $id);
+})->assert('id', '\d+');
+
 $app->delete('/api/dishes/{id}', function ($id) use ($app) {
     return deleteDish($id);
 })->assert('id', '\d+');

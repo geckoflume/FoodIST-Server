@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
+        th, td {
+            vertical-align: middle!important;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -17,68 +21,73 @@
         <p>Repository: <a href="https://github.com/geckoflume/FoodIST-Server">https://github.com/geckoflume/FoodIST-Server</a></p>
     </div>
     <table class="table table-bordered table-sm">
+        <caption>API endpoints</caption>
         <thead>
         <tr>
-            <th></th>
-            <th>Method</th>
+            <th style="width: 33%"></th>
+            <th style="width: 20%">Method</th>
             <th>Endpoint</th>
         </tr>
         </thead>
-        <tbody class="hover">
+        <tbody>
         <tr>
-            <td rowspan="5" class="align-middle">Dish</td>
-            <td>GET</td>
-            <td>/api/dishes</td>
+            <th rowspan="0">Dish</th>
+            <td class="table-success">GET</td>
+            <td class="table-success">/api/dishes</td>
         </tr>
         <tr>
-            <td>POST</td>
-            <td>/api/dishes</td>
+            <td class="table-warning">POST</td>
+            <td class="table-warning">/api/dishes</td>
         </tr>
         <tr>
-            <td>GET</td>
-            <td>/api/dishes/{id}</td>
+            <td class="table-success">GET</td>
+            <td class="table-success">/api/dishes/{id}</td>
         </tr>
         <tr>
-            <td>DELETE</td>
-            <td>/api/dishes/{id}</td>
+            <td class="table-primary">PUT</td>
+            <td class="table-primary">/api/dishes/{id}</td>
         </tr>
         <tr>
-            <td>GET</td>
-            <td>/api/dishes/{id}/pictures</td>
+            <td class="table-danger">DELETE</td>
+            <td class="table-danger">/api/dishes/{id}</td>
+        </tr>
+        <tr>
+            <td class="table-success">GET</td>
+            <td class="table-success">/api/dishes/{id}/pictures</td>
         </tr>
         </tbody>
         <tbody>
         <tr>
-            <td rowspan="3" class="align-middle">Cafeteria</td>
-            <td>GET</td>
-            <td>/api/cafeterias</td>
+            <th rowspan="0">Cafeteria</th>
+            <td class="table-success">GET</td>
+            <td class="table-success">/api/cafeterias</td>
         </tr>
         <tr>
-            <td>GET</td>
-            <td>/api/cafeterias/{id}</td>
+            <td class="table-success">GET</td>
+            <td class="table-success">/api/cafeterias/{id}</td>
         </tr>
         <tr>
-            <td>GET</td>
-            <td>/api/cafeterias/{id}/dishes</td>
+            <td class="table-success">GET</td>
+            <td class="table-success">/api/cafeterias/{id}/dishes</td>
         </tr>
         </tbody>
         <tbody>
         <tr>
-            <td rowspan="4" class="align-middle">Picture</td>
-            <td>GET</td>
-            <td>/api/pictures</td>
+            <th rowspan="0">Picture</th>
+            <td class="table-success">GET</td>
+            <td class="table-success">/api/pictures</td>
         </tr>
         <tr>
-            <td>POST</td>
-            <td>/api/pictures</td>
+            <td class="table-warning">POST</td>
+            <td class="table-warning">/api/pictures</td>
         </tr>
         <tr>
-            <td>GET</td>
-            <td>/api/pictures/{id}</td>
+            <td class="table-success">GET</td>
+            <td class="table-success">/api/pictures/{id}</td>
         </tr>
         <tr>
-            <td>DELETE</td>
-            <td>/api/pictures/{id}</td>
+            <td class="table-danger">DELETE</td>
+            <td class="table-danger">/api/pictures/{id}</td>
         </tr>
         </tbody>
     </table>
