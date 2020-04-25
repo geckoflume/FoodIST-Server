@@ -3,48 +3,40 @@ FoodIST: Finding food on campus
 
 ## Specifications
 
-FoodIST server module, providing a REST API HTTPS server, based on Eclipse Vert.x v3.9.  
-Meant to be used with the FoodIST android application, it provides ability to crowdsource cafeteria menus and queue wait times.
+FoodIST server module, providing a REST API HTTPS server.  
+Meant to be used with the FoodIST Android application, it provides ability to crowdsource cafeteria menus and queue wait times.
 
 ## Prerequisites
 
-- Java JDK 8+
-- Gradle
+- A web server, can be Apache, nginx...
+- Mysql/MariaDB
+- Composer
 
-## How to build
+## How to configure
 
-```shell script
-openssl req \
-       -newkey rsa:2048 -nodes -keyout server-key.pem \
-       -x509 -days 365 -out server-cert.pem
-/.gradlew build
-```
+- Load the [config/database.php](config/database.php) script in your corresponding database.
+- Then, setup the [database.sql](init.sql) using your database connexion data.
+- Finally, configure your web server :
+
+### How to configure Apache
+
+Use the provided [.htaccess](.htaccess), and modify the `FallbackResource` rule according to the app path.
+
+### How to configure other web servers
+
+https://silex.symfony.com/doc/2.0/web_servers.html
 
 ## How to start
 
-```shell script
-./gradlew run
-```
-The server will be started on https://localhost:3000/.
+The server will be started on https://localhost/.
 
 ## Endpoints
 
 ### Dishes
-| Method | Endpoint                       |
-|:------ |:------------------------------ |
-| GET    | /api/v1/dishes                 |
-| POST   | /api/v1/dishes                 |
-| GET    | /api/v1/dishes/{id}            |
-| DELETE | /api/v1/dishes/{id}            |
+| Method | Endpoint                    |
+|:------ |:--------------------------- |
+| GET    | /api/dishes                 |
+| POST   | /api/dishes                 |
+| GET    | /api/dishes/{id}            |
+| DELETE | /api/dishes/{id}            |
 
-### Cafeterias
-| Method | Endpoint                       |
-|:------ |:------------------------------ |
-| GET    | /api/v1/cafeterias             |
-| GET    | /api/v1/cafeterias/{id}             |
-| GET    | /api/v1/cafeterias/{id}/dishes |
-
-
-<p align="center">
-  <a href="https://vertx.io/"><img src="https://github.com/vert-x3/vertx-web-site/raw/master/src/site/assets/logo-sm.png" alt="Vert.x"/></a>
-</p>
