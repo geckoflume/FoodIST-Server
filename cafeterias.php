@@ -10,10 +10,10 @@ function getCafeterias()
 
     // query cafeterias
     $stmt = $cafeteria->fetchAll();
-    $num = $stmt->rowCount();
+    $stmt->execute();
 
     // check if more than 0 record found
-    if ($num > 0) {
+    if ($stmt->rowCount() > 0) {
         $cafeterias_arr = array();
 
         // fetch() is faster than fetchAll()
@@ -31,7 +31,6 @@ function getCafeterias()
 
             array_push($cafeterias_arr, $cafeteria_item);
         }
-
         return new JsonResponse($cafeterias_arr, 200);
     } else {
         return new JsonResponse(array("message" => "No cafeterias found."), 404);
@@ -44,10 +43,10 @@ function getCafeteria($id)
 
     // query cafeterias
     $stmt = $cafeteria->fetch($id);
-    $num = $stmt->rowCount();
+    $stmt->execute();
 
     // check if more than 0 record found
-    if ($num > 0) {
+    if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return new JsonResponse($row, 200);
     } else {

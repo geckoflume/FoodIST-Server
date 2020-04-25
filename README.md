@@ -35,17 +35,27 @@ The server will be started on https://localhost/.
 
 Base api url: https://localhost/api
 
-### Dishes
-| Method | Endpoint                |
-|:------ |:----------------------- |
-| GET    | /dishes                 |
-| POST   | /dishes                 |
-| GET    | /dishes/{id}            |
-| DELETE | /dishes/{id}            |
-
 ### Cafeterias
-| Method | Endpoint                |
-|:------ |:----------------------- |
-| GET    | /cafeterias             |
-| GET    | /cafeterias/{id}        |
-| GET    | /cafeterias/{id}/dishes |
+| Method | Endpoint                    |
+|:------ |:--------------------------- |
+| GET    | /api/cafeterias             |
+| GET    | /api/cafeterias/{id}        |
+| GET    | /api/cafeterias/{id}/dishes |
+
+### Dishes
+| Method | Endpoint                    |
+|:------ |:--------------------------- |
+| GET    | /api/dishes                 |
+| POST   | /api/dishes                 |
+| GET    | /api/dishes/{id}            |
+| PUT    | /api/dishes/{id}            |
+| DELETE | /api/dishes/{id}            |
+| GET    | /api/dishes/{id}/pictures   |
+
+### Pictures
+| Method | Endpoint                    |
+|:------ |:--------------------------- |
+| GET    | /api/pictures               |
+| POST   | /api/pictures               |
+| GET    | /api/pictures/{id}          |
+| DELETE | /api/dishes/{id}            |

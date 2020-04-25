@@ -19,7 +19,6 @@ class PictureEntity extends BaseEntity
 
         $stmt->bindParam(":dish_id", $dish_id);
 
-        $stmt->execute();
 
         return $stmt;
     }
@@ -37,14 +36,16 @@ class PictureEntity extends BaseEntity
         $stmt->bindParam(":dish_id", $this->dish_id);
         $stmt->bindParam(":filename", $this->filename);
 
-        if ($stmt->execute()) {
-            return array(
-                "id" => $this->conn->lastInsertId(),
-                "dish_id" => $this->dish_id,
-                "filename" => $this->filename
-            );
-        } else {
-            return false;
-        }
+        return $stmt;
+    }
+
+    function deleteAllByDishId($dish_id)
+    {
+        $query = "DELETE FROM " . $this->table_name . " WHERE dish_id = :dish_id";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":dish_id", $dish_id);
+
+        return $stmt;
     }
 }

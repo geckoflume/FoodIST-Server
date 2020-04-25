@@ -20,8 +20,6 @@ class DishEntity extends BaseEntity
 
         $stmt->bindParam(":cafeteria_id", $cafeteria_id);
 
-        $stmt->execute();
-
         return $stmt;
     }
 
@@ -38,16 +36,7 @@ class DishEntity extends BaseEntity
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":price", $this->price);
 
-        if ($stmt->execute()) {
-            return array(
-                "id" => $this->conn->lastInsertId(),
-                "cafeteria_id" => $this->cafeteria_id,
-                "name" => $this->name,
-                "price" => $this->price
-            );
-        } else {
-            return false;
-        }
+        return $stmt;
     }
 
     function updateDish() {
@@ -62,8 +51,6 @@ class DishEntity extends BaseEntity
         $stmt->bindParam(":cafeteria_id", $this->cafeteria_id);
         $stmt->bindParam(":name", $this->name);
         $stmt->bindParam(":price", $this->price);
-
-        $stmt->execute();
 
         return $stmt;
     }

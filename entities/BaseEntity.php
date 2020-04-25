@@ -2,7 +2,7 @@
 
 abstract class BaseEntity
 {
-    protected $conn;
+    public $conn;
     protected $table_name = "";
 
     public $id;
@@ -18,10 +18,7 @@ abstract class BaseEntity
     {
         $query = "SELECT * FROM " . $this->table_name;
 
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-
-        return $stmt;
+        return $this->conn->prepare($query);
     }
 
 
@@ -31,7 +28,6 @@ abstract class BaseEntity
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
-        $stmt->execute();
 
         return $stmt;
     }
@@ -42,7 +38,6 @@ abstract class BaseEntity
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":id", $id);
-        $stmt->execute();
 
         return $stmt;
     }

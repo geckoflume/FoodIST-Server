@@ -10,10 +10,10 @@ function getDishes()
 
     // query dishes
     $stmt = $dish->fetchAll();
-    $num = $stmt->rowCount();
+    $stmt->execute();
 
     // check if more than 0 record found
-    if ($num > 0) {
+    if ($stmt->rowCount() > 0) {
         $dishes_arr = array();
 
         // fetch() is faster than fetchAll()
@@ -49,10 +49,10 @@ function getDishesByCafeteria($id)
 
     // query dishes
     $stmt = $dish->fetchAllByCafeteria($id);
-    $num = $stmt->rowCount();
+    $stmt->execute();
 
     // check if more than 0 record found
-    if ($num > 0) {
+    if ($stmt->rowCount() > 0) {
         $dishes_arr = array();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -86,10 +86,10 @@ function getDish($id)
 
     // query dishes
     $stmt = $dish->fetch($id);
-    $num = $stmt->rowCount();
+    $stmt->execute();
 
     // check if more than 0 record found
-    if ($num > 0) {
+    if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return new JsonResponse($row, 200);
     } else {
@@ -106,8 +106,16 @@ function postDish($data)
         $dish->name = $data["name"];
         $dish->price = $data["price"];
 
-        $dish = $dish->insertDish();
-        if ($dish) {
+        $stmt = $dish->insertDish();
+        $stmt->execute();
+
+        if ($stmt->execute()) {
+            $dish = array(
+                "id" => $dish->conn->lastInsertId(),
+                "cafeteria_id" => $dish->cafeteria_id,
+                "name" => $dish->name,
+                "price" => $dish->price
+            );
             $r = new JsonResponse($dish, 201);
             $r->setEncodingOptions(JSON_NUMERIC_CHECK);
             return $r;
@@ -131,6 +139,7 @@ function updateDish($data, $id)
         $dish->price = $data["price"];
 
         $stmt = $dish->updateDish();
+        $stmt->execute();
 
         if ($stmt->rowCount() == 1) {
             $dish = array(
@@ -150,9 +159,14 @@ function updateDish($data, $id)
 
 function deleteDish($id)
 {
+    $picture = new PictureEntity();
+    $picture_stmt = $picture->deleteAllByDishId($id); // to avoid the foreign key constraint fail
+    $picture_stmt->execute();
+
     $dish = new DishEntity();
 
     $stmt = $dish->delete($id);
+    $stmt->execute();
 
     // check if more than 0 record found
     if ($stmt->rowCount() == 1) {

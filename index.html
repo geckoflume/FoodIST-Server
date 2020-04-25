@@ -9,6 +9,10 @@
             vertical-align: middle!important;
             text-align: center;
         }
+        pre {
+            text-align: left;
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body>
@@ -21,73 +25,120 @@
         <p>Repository: <a href="https://github.com/geckoflume/FoodIST-Server">https://github.com/geckoflume/FoodIST-Server</a></p>
     </div>
     <table class="table table-bordered table-sm">
-        <caption>API endpoints</caption>
+        <caption>Endpoints for cafeterias</caption>
         <thead>
         <tr>
-            <th style="width: 33%"></th>
-            <th style="width: 20%">Method</th>
-            <th>Endpoint</th>
+            <th style="width: 25%">Method</th>
+            <th style="width: 35%">Endpoint</th>
+            <th style="width: 40%">Example</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th rowspan="0">Dish</th>
-            <td class="table-success">GET</td>
-            <td class="table-success">/api/dishes</td>
+        <tr class="table-success">
+            <td>GET</td>
+            <td>/api/cafeterias</td>
+            <td></td>
         </tr>
-        <tr>
-            <td class="table-warning">POST</td>
-            <td class="table-warning">/api/dishes</td>
+        <tr class="table-success">
+            <td>GET</td>
+            <td>/api/cafeterias/{id}</td>
+            <td></td>
         </tr>
-        <tr>
-            <td class="table-success">GET</td>
-            <td class="table-success">/api/dishes/{id}</td>
-        </tr>
-        <tr>
-            <td class="table-primary">PUT</td>
-            <td class="table-primary">/api/dishes/{id}</td>
-        </tr>
-        <tr>
-            <td class="table-danger">DELETE</td>
-            <td class="table-danger">/api/dishes/{id}</td>
-        </tr>
-        <tr>
-            <td class="table-success">GET</td>
-            <td class="table-success">/api/dishes/{id}/pictures</td>
+        <tr class="table-success">
+            <td>GET</td>
+            <td>/api/cafeterias/{id}/dishes</td>
+            <td></td>
         </tr>
         </tbody>
+    </table>
+    <table class="table table-bordered table-sm">
+        <caption>Endpoints for dishes</caption>
+        <thead>
+        <tr>
+            <th style="width: 25%">Method</th>
+            <th style="width: 35%">Endpoint</th>
+            <th style="width: 40%">Example</th>
+        </tr>
+        </thead>
         <tbody>
-        <tr>
-            <th rowspan="0">Cafeteria</th>
-            <td class="table-success">GET</td>
-            <td class="table-success">/api/cafeterias</td>
+        <tr class="table-success">
+            <td>GET</td>
+            <td>/api/dishes</td>
+            <td></td>
         </tr>
-        <tr>
-            <td class="table-success">GET</td>
-            <td class="table-success">/api/cafeterias/{id}</td>
+        <tr class="table-warning">
+            <td>POST</td>
+            <td>/api/dishes</td>
+            <td>
+<pre><code>{
+    "cafeteria_id": 12,
+    "name": "Bacalhau à brás",
+    "price": 1.4
+}</code></pre>
+            </td>
         </tr>
-        <tr>
-            <td class="table-success">GET</td>
-            <td class="table-success">/api/cafeterias/{id}/dishes</td>
+        <tr class="table-success">
+            <td>GET</td>
+            <td>/api/dishes/{id}</td>
+            <td></td>
+        </tr>
+        <tr class="table-primary">
+            <td>PUT</td>
+            <td>/api/dishes/{id}</td>
+            <td>
+<pre><code>{
+    "cafeteria_id": 2,
+    "name": "Soupe",
+    "price": 0.8
+}</code></pre>
+            </td>
+        </tr>
+        <tr class="table-danger">
+            <td>DELETE</td>
+            <td>/api/dishes/{id}</td>
+            <td></td>
+        </tr>
+        <tr class="table-success">
+            <td>GET</td>
+            <td>/api/dishes/{id}/pictures</td>
+            <td></td>
         </tr>
         </tbody>
+    </table>
+    <table class="table table-bordered table-sm">
+        <caption>Endpoints for pictures</caption>
+        <thead>
+        <tr>
+            <th style="width: 25%">Method</th>
+            <th style="width: 35%">Endpoint</th>
+            <th style="width: 40%">Example</th>
+        </tr>
+        </thead>
         <tbody>
-        <tr>
-            <th rowspan="0">Picture</th>
-            <td class="table-success">GET</td>
-            <td class="table-success">/api/pictures</td>
+        <tr class="table-success">
+            <td>GET</td>
+            <td>/api/pictures</td>
+            <td></td>
         </tr>
-        <tr>
-            <td class="table-warning">POST</td>
-            <td class="table-warning">/api/pictures</td>
+        <tr class="table-warning">
+            <td>POST</td>
+            <td>/api/pictures</td>
+            <td>
+<pre><code>{
+    "dish_id": 12,
+    "filename": "pic01.jpg"
+}</code></pre>
+            </td>
         </tr>
-        <tr>
-            <td class="table-success">GET</td>
-            <td class="table-success">/api/pictures/{id}</td>
+        <tr class="table-success">
+            <td>GET</td>
+            <td>/api/pictures/{id}</td>
+            <td></td>
         </tr>
-        <tr>
-            <td class="table-danger">DELETE</td>
-            <td class="table-danger">/api/pictures/{id}</td>
+        <tr class="table-danger">
+            <td>DELETE</td>
+            <td>/api/pictures/{id}</td>
+            <td></td>
         </tr>
         </tbody>
     </table>

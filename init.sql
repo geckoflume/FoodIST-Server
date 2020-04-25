@@ -7,8 +7,7 @@ CREATE DATABASE foodist;
 
 CREATE TABLE cafeterias
 (
-    id int(11) NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (id)
+    id int(11) PRIMARY KEY AUTO_INCREMENT
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
@@ -31,11 +30,10 @@ VALUES (1),
 
 CREATE TABLE dishes
 (
-    id           int(11)      NOT NULL AUTO_INCREMENT,
+    id           int(11) PRIMARY KEY AUTO_INCREMENT,
     cafeteria_id int(11)      NOT NULL,
     name         varchar(255) NOT NULL,
     price        float        NOT NULL,
-    PRIMARY KEY (id),
     FOREIGN KEY (cafeteria_id) REFERENCES cafeterias (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
@@ -46,10 +44,9 @@ VALUES (1, 'Soup', 0.6),
 
 CREATE TABLE pictures
 (
-    id      int(11) NOT NULL AUTO_INCREMENT,
-    dish_id int(11) NOT NULL,
+    id       int(11) PRIMARY KEY AUTO_INCREMENT,
+    dish_id  int(11)             NOT NULL,
     filename varchar(255) UNIQUE NOT NULL,
-    PRIMARY KEY (id),
     FOREIGN KEY (dish_id) REFERENCES dishes (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
