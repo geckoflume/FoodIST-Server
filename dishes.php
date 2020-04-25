@@ -2,9 +2,6 @@
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-
 include_once 'config/database.php';
 include_once 'entities/dish.php';
 
@@ -41,7 +38,42 @@ function getDishes()
 
             array_push($dishes_arr, $dish_item);
         }
+        return new JsonResponse($dishes_arr, 200);
+    } else {
+        return new JsonResponse(array("message" => "No dishes found."), 404);
+    }
+}
 
+function getDishesByCafeteria($id) {
+    $dish = new Dish();
+
+    // query dishes
+    $stmt = $dish->fetchAllByCafeteria($id);
+    $num = $stmt->rowCount();
+
+    // check if more than 0 record found
+    if ($num > 0) {
+        $dishes_arr = array();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            // this will make $row['name'] to just $name only
+            /**
+             * @var int $id
+             * @var int $cafeteria_id
+             * @var string $name
+             * @var double $price
+             */
+            extract($row);
+
+            $dish_item = array(
+                "id" => $id,
+                "cafeteria_id" => $cafeteria_id,
+                "name" => $name,
+                "price" => $price
+            );
+
+            array_push($dishes_arr, $dish_item);
+        }
         return new JsonResponse($dishes_arr, 200);
     } else {
         return new JsonResponse(array("message" => "No dishes found."), 404);

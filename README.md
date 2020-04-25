@@ -1,4 +1,5 @@
 # FoodIST-Server
+
 FoodIST: Finding food on campus
 
 ## Specifications
@@ -32,11 +33,19 @@ The server will be started on https://localhost/.
 
 ## Endpoints
 
-### Dishes
-| Method | Endpoint                    |
-|:------ |:--------------------------- |
-| GET    | /api/dishes                 |
-| POST   | /api/dishes                 |
-| GET    | /api/dishes/{id}            |
-| DELETE | /api/dishes/{id}            |
+Base api url: https://localhost/api
 
+### Dishes
+| Method | Endpoint                |
+|:------ |:----------------------- |
+| GET    | /dishes                 |
+| POST   | /dishes                 |
+| GET    | /dishes/{id}            |
+| DELETE | /dishes/{id}            |
+
+### Cafeterias
+| Method | Endpoint                |
+|:------ |:----------------------- |
+| GET    | /cafeterias             |
+| GET    | /cafeterias/{id}        |
+| GET    | /cafeterias/{id}/dishes |

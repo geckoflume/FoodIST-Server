@@ -26,6 +26,19 @@ class Dish
         return $stmt;
     }
 
+    function fetchAllByCafeteria($cafeteria_id)
+    {
+        $query = "SELECT * FROM " . $this->table_name . " WHERE cafeteria_id = :cafeteria_id";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":cafeteria_id", $cafeteria_id);
+
+        $stmt->execute();
+
+        return $stmt;
+    }
+
     function insertDish()
     {
         $query = "INSERT INTO " . $this->table_name . "(cafeteria_id, name, price) VALUES(:cafeteria_id, :name, :price)";

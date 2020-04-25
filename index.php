@@ -4,6 +4,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once 'dishes.php';
+require_once 'cafeterias.php';
 
 $app = new Silex\Application();
 $app['debug'] = true;
@@ -34,6 +35,19 @@ $app->delete('/api/dishes/{id}', function ($id) use ($app) {
 $app->post('/api/dishes', function (Request $request) use ($app) {
     $data = $request->request->all();
     return postDishes($data);
+})->assert('id', '\d+');
+
+$app->get('/api/cafeterias', function () {
+    return getCafeterias();
+});
+
+$app->get('/api/cafeterias/{id}', function ($id) use ($app) {
+    return getCafeteria($id);
+})->assert('id', '\d+');
+
+
+$app->get('/api/cafeterias/{id}/dishes', function ($id) use ($app) {
+    return getDishesByCafeteria($id);
 })->assert('id', '\d+');
 
 $app->run();
