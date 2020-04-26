@@ -1,7 +1,5 @@
 <?php
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 include_once 'entities/PictureEntity.php';
 
 function getPictures()
@@ -35,13 +33,14 @@ function getPictures()
 
             array_push($pictures_arr, $picture_item);
         }
-        return new JsonResponse($pictures_arr, 200);
+        return new MyJsonResponse($pictures_arr, 200);
     } else {
-        return new JsonResponse(array("message" => "No pictures found."), 404);
+        return new MyJsonResponse(array("message" => "No pictures found."), 404);
     }
 }
 
-function getPicturesByDish($id) {
+function getPicturesByDish($id)
+{
     $picture = new PictureEntity();
 
     // query pictures
@@ -69,9 +68,9 @@ function getPicturesByDish($id) {
 
             array_push($pictures_arr, $picture_item);
         }
-        return new JsonResponse($pictures_arr, 200);
+        return new MyJsonResponse($pictures_arr, 200);
     } else {
-        return new JsonResponse(array("message" => "No pictures found for this dish."), 404);
+        return new MyJsonResponse(array("message" => "No pictures found for this dish."), 404);
     }
 }
 
@@ -86,39 +85,36 @@ function getPicture($id)
     // check if more than 0 record found
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new JsonResponse($row, 200);
+        return new MyJsonResponse($row, 200);
     } else {
-        return new JsonResponse(array("message" => "No picture found."), 404);
+        return new MyJsonResponse(array("message" => "No picture found."), 404);
     }
 }
 
-function postPicture($data)
+function postPicture($data, $filename)
 {
     $picture = new PictureEntity();
 
-    if (!empty($data["dish_id"]) && !empty($data["filename"])) {
+    if (!empty($data["dish_id"])) {
         $picture->dish_id = $data["dish_id"];
-        $picture->filename = $data["filename"];
+        $picture->filename = $filename;
 
         // create the picture
         $stmt = $picture->insertPicture();
-        $stmt->execute();
 
         if ($stmt->execute()) {
             $dish = array(
                 "id" => $picture->conn->lastInsertId(),
-                "cafeteria_id" => $picture->dish_id,
-                "name" => $picture->filename
+                "dish_id" => $picture->dish_id,
+                "filename" => $picture->filename
             );
-            $r = new JsonResponse($dish, 201);
-            $r->setEncodingOptions(JSON_NUMERIC_CHECK);
-            return $r;
+            return new MyJsonResponse($dish, 201);
         } // if unable to create the picture
         else {
-            return new JsonResponse(array("message" => "Unable to create picture. Please check that this cafeteria exists."), 503);
+            return new MyJsonResponse(array("message" => "Unable to create picture. Please check that this dish exists."), 503);
         }
     } else {
-        return new JsonResponse(array("message" => "Unable to create picture. Data is incomplete."), 400);
+        return new MyJsonResponse(array("message" => "Unable to create picture. Data is incomplete."), 400);
     }
 }
 
@@ -132,8 +128,8 @@ function deletePicture($id)
 
     // check if more than 0 record found
     if ($stmt->rowCount() == 1) {
-        return new JsonResponse(array("message" => "Picture deleted."), 200);
+        return new MyJsonResponse(array("message" => "Picture deleted."), 200);
     } else {
-        return new JsonResponse(array("message" => "No picture found. This picture was not deleted."), 404);
+        return new MyJsonResponse(array("message" => "No picture found. This picture was not deleted."), 404);
     }
 }

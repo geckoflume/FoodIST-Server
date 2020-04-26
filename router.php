@@ -3,7 +3,9 @@
 use Symfony\Component\HttpFoundation\Request;
 
 require_once(__DIR__ . '/vendor/autoload.php');
-require_once(__DIR__ . '/config/Database.php');
+require_once(__DIR__ . '/utils/Database.php');
+require_once(__DIR__ . '/utils/PictureUploader.php');
+require_once(__DIR__ . '/utils/MyJsonResponse.php');
 require_once(__DIR__ . '/entities/BaseEntity.php');
 require_once(__DIR__ . '/dishes.php');
 require_once(__DIR__ . '/cafeterias.php');
@@ -86,7 +88,14 @@ $app->delete('/api/pictures/{id}', function ($id) use ($app) {
 
 $app->post('/api/pictures', function (Request $request) use ($app) {
     $data = $request->request->all();
-    return postPicture($data);
+    $uploadedPicture = $request->files->get('picture');
+
+    if ($uploadedPicture == null || $uploadedPicture->getMimeType() != "image/jpeg") {
+        return new MyJsonResponse(array("message" => "Unable to create picture. Data is incomplete, please provide a JPEG picture."), 400);
+    } else {
+        $pu = new PictureUploader($uploadedPicture);
+        return postPicture($data, $pu->getNewFilename());
+    }
 });
 
 $app->get('/api/dishes/{id}/pictures', function ($id) use ($app) {

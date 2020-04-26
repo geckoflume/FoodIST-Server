@@ -29,10 +29,6 @@ class PictureEntity extends BaseEntity
 
         $stmt = $this->conn->prepare($query);
 
-        // sanitize
-        $this->dish_id = htmlspecialchars(strip_tags($this->dish_id));
-        $this->filename = htmlspecialchars(strip_tags($this->filename));
-
         $stmt->bindParam(":dish_id", $this->dish_id);
         $stmt->bindParam(":filename", $this->filename);
 

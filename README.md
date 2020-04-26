@@ -10,12 +10,13 @@ Meant to be used with the FoodIST Android application, it provides ability to cr
 ## Prerequisites
 
 - A web server, can be Apache, nginx...
-- Mysql/MariaDB
+- PHP 7
+- A MySQL/MariaDB database
 - Composer
 
 ## How to configure
 
-- Load the [config/database.php](config/Database.php) script in your corresponding database.
+- Load the [config/database.php](utils/Database.php) script in your corresponding database.
 - Then, setup the [database.sql](init.sql) using your database connexion data.
 - Finally, configure your web server :
 
@@ -36,26 +37,32 @@ The server will be started on https://localhost/.
 Base api url: https://localhost/api
 
 ### Cafeterias
-| Method | Endpoint                    |
-|:------ |:--------------------------- |
-| GET    | /api/cafeterias             |
-| GET    | /api/cafeterias/{id}        |
-| GET    | /api/cafeterias/{id}/dishes |
+| Method                     | Endpoint                    |
+|:-------------------------- |:--------------------------- |
+| GET                        | /api/cafeterias             |
+| GET                        | /api/cafeterias/{id}        |
+| GET                        | /api/cafeterias/{id}/dishes |
 
 ### Dishes
-| Method | Endpoint                    |
-|:------ |:--------------------------- |
-| GET    | /api/dishes                 |
-| POST   | /api/dishes                 |
-| GET    | /api/dishes/{id}            |
-| PUT    | /api/dishes/{id}            |
-| DELETE | /api/dishes/{id}            |
-| GET    | /api/dishes/{id}/pictures   |
+| Method                     | Endpoint                    |
+|:-------------------------- |:--------------------------- |
+| GET                        | /api/dishes                 |
+| POST                       | /api/dishes                 |
+| GET                        | /api/dishes/{id}            |
+| PUT                        | /api/dishes/{id}            |
+| DELETE                     | /api/dishes/{id}            |
+| GET                        | /api/dishes/{id}/pictures   |
 
 ### Pictures
-| Method | Endpoint                    |
-|:------ |:--------------------------- |
-| GET    | /api/pictures               |
-| POST   | /api/pictures               |
-| GET    | /api/pictures/{id}          |
-| DELETE | /api/dishes/{id}            |
+| Method                     | Endpoint                    |
+|:-------------------------- |:--------------------------- |
+| GET                        | /api/pictures               |
+| POST (multipart/form-data) | /api/pictures               |
+| GET                        | /api/pictures/{id}          |
+| DELETE                     | /api/pictures/{id}          |
+
+## Valuable resources:
+ - How to upload a file using a REST web service:
+	 - https://stackoverflow.com/a/4083908
+	 - https://symfonycasts.com/screencast/symfony-uploads/storing-uploaded-file
+

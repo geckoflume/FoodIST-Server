@@ -1,7 +1,5 @@
 <?php
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 include_once 'entities/CafeteriaEntity.php';
 
 function getCafeterias()
@@ -31,9 +29,9 @@ function getCafeterias()
 
             array_push($cafeterias_arr, $cafeteria_item);
         }
-        return new JsonResponse($cafeterias_arr, 200);
+        return new MyJsonResponse($cafeterias_arr, 200);
     } else {
-        return new JsonResponse(array("message" => "No cafeterias found."), 404);
+        return new MyJsonResponse(array("message" => "No cafeterias found."), 404);
     }
 }
 
@@ -48,8 +46,8 @@ function getCafeteria($id)
     // check if more than 0 record found
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new JsonResponse($row, 200);
+        return new MyJsonResponse($row, 200);
     } else {
-        return new JsonResponse(array("message" => "No cafeteria found."), 404);
+        return new MyJsonResponse(array("message" => "No cafeteria found."), 404);
     }
 }

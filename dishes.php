@@ -1,7 +1,5 @@
 <?php
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-
 require 'entities/DishEntity.php';
 
 function getDishes()
@@ -37,9 +35,9 @@ function getDishes()
 
             array_push($dishes_arr, $dish_item);
         }
-        return new JsonResponse($dishes_arr, 200);
+        return new MyJsonResponse($dishes_arr, 200);
     } else {
-        return new JsonResponse(array("message" => "No dishes found."), 404);
+        return new MyJsonResponse(array("message" => "No dishes found."), 404);
     }
 }
 
@@ -74,9 +72,9 @@ function getDishesByCafeteria($id)
 
             array_push($dishes_arr, $dish_item);
         }
-        return new JsonResponse($dishes_arr, 200);
+        return new MyJsonResponse($dishes_arr, 200);
     } else {
-        return new JsonResponse(array("message" => "No dishes found for this cafeteria."), 404);
+        return new MyJsonResponse(array("message" => "No dishes found for this cafeteria."), 404);
     }
 }
 
@@ -91,9 +89,9 @@ function getDish($id)
     // check if more than 0 record found
     if ($stmt->rowCount() > 0) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new JsonResponse($row, 200);
+        return new MyJsonResponse($row, 200);
     } else {
-        return new JsonResponse(array("message" => "No dish found."), 404);
+        return new MyJsonResponse(array("message" => "No dish found."), 404);
     }
 }
 
@@ -116,15 +114,13 @@ function postDish($data)
                 "name" => $dish->name,
                 "price" => $dish->price
             );
-            $r = new JsonResponse($dish, 201);
-            $r->setEncodingOptions(JSON_NUMERIC_CHECK);
-            return $r;
+            return new MyJsonResponse($dish, 201);
         } // if unable to create the dish
         else {
-            return new JsonResponse(array("message" => "Unable to create dish. Please check that this cafeteria exists."), 503);
+            return new MyJsonResponse(array("message" => "Unable to create dish. Please check that this cafeteria exists."), 503);
         }
     } else {
-        return new JsonResponse(array("message" => "Unable to create dish. Data is incomplete."), 400);
+        return new MyJsonResponse(array("message" => "Unable to create dish. Data is incomplete."), 400);
     }
 }
 
@@ -148,12 +144,12 @@ function updateDish($data, $id)
                 "name" => $dish->name,
                 "price" => $dish->price
             );
-            $r = new JsonResponse($dish, 200);
-            $r->setEncodingOptions(JSON_NUMERIC_CHECK);
-            return $r;
+            return new MyJsonResponse($dish, 200);
         } else {
-            return new JsonResponse(array("message" => "No dish found. This dish was not updated."), 404);
+            return new MyJsonResponse(array("message" => "No dish found. This dish was not updated."), 404);
         }
+    } else {
+        return new MyJsonResponse(array("message" => "Unable to update dish. Data is incomplete."), 400);
     }
 }
 
@@ -170,8 +166,8 @@ function deleteDish($id)
 
     // check if more than 0 record found
     if ($stmt->rowCount() == 1) {
-        return new JsonResponse(array("message" => "Dish deleted."), 200);
+        return new MyJsonResponse(array("message" => "Dish deleted."), 200);
     } else {
-        return new JsonResponse(array("message" => "No dish found. This dish was not deleted."), 404);
+        return new MyJsonResponse(array("message" => "No dish found. This dish was not deleted."), 404);
     }
 }
