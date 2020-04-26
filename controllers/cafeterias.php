@@ -1,6 +1,6 @@
 <?php
 
-include_once 'entities/CafeteriaEntity.php';
+require 'entities/CafeteriaEntity.php';
 
 function getCafeterias()
 {
@@ -43,8 +43,8 @@ function getCafeteria($id)
     $stmt = $cafeteria->fetch($id);
     $stmt->execute();
 
-    // check if more than 0 record found
-    if ($stmt->rowCount() > 0) {
+    // check if 1 record found
+    if ($stmt->rowCount() == 1) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return new MyJsonResponse($row, 200);
     } else {

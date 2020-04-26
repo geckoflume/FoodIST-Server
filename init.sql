@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS foodist;
 CREATE DATABASE foodist;
 
+-- DROP TABLE IF EXISTS beacons;
 -- DROP TABLE IF EXISTS pictures;
 -- DROP TABLE IF EXISTS dishes;
 -- DROP TABLE IF EXISTS cafeterias;
@@ -28,6 +29,17 @@ VALUES (1),
        (14),
        (15);
 
+CREATE TABLE beacons
+(
+    id              int(11) PRIMARY KEY AUTO_INCREMENT,
+    cafeteria_id    int(11)     NOT NULL,
+    datetime_arrive varchar(30) NOT NULL,
+    datetime_leave  varchar(30),
+    duration        int(11),
+    FOREIGN KEY (cafeteria_id) REFERENCES cafeterias (id)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
 CREATE TABLE dishes
 (
     id           int(11) PRIMARY KEY AUTO_INCREMENT,
@@ -38,10 +50,6 @@ CREATE TABLE dishes
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
 
-INSERT INTO dishes (cafeteria_id, name, price)
-VALUES (1, 'Soup', 0.6),
-       (1, 'Cooked Porkchop', 1.5);
-
 CREATE TABLE pictures
 (
     id       int(11) PRIMARY KEY AUTO_INCREMENT,
@@ -50,7 +58,3 @@ CREATE TABLE pictures
     FOREIGN KEY (dish_id) REFERENCES dishes (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
-
-INSERT INTO pictures (dish_id, filename)
-VALUES (1, 'photo1.jpg'),
-       (1, 'photo2.jpg');

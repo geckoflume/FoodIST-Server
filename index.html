@@ -51,8 +51,59 @@
         </tr>
         <tr class="table-success">
             <td>GET</td>
+            <td>/api/cafeterias/{id}/beacons</td>
+            <td><code><a href="cafeterias/1/dishes">/api/cafeterias/1/beacons</a></code></td>
+        </tr>
+        <tr class="table-success">
+            <td>GET</td>
             <td>/api/cafeterias/{id}/dishes</td>
             <td><code><a href="cafeterias/1/dishes">/api/cafeterias/1/dishes</a></code></td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="table table-bordered table-sm table-hover">
+        <caption>Endpoints for beacons</caption>
+        <thead>
+        <tr>
+            <th style="width: 25%">Method</th>
+            <th style="width: 35%">Endpoint</th>
+            <th style="width: 40%">Example</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-success">
+            <td>GET</td>
+            <td>/api/beacons</td>
+            <td><code><a href="beacons">/api/beacons</a></code></td>
+        </tr>
+        <tr class="table-warning">
+            <td>POST</td>
+            <td>/api/beacons</td>
+            <td>
+<pre><code>{
+    "cafeteria_id": 12,
+    "datetime_arrive": "2020-04-26T09:12:43.511Z"
+}</code></pre>
+            </td>
+        </tr>
+        <tr class="table-success">
+            <td>GET</td>
+            <td>/api/beacons/{id}</td>
+            <td><code><a href="beacons/1">/api/beacons/1</a></code></td>
+        </tr>
+        <tr class="table-primary">
+            <td>PUT</td>
+            <td>/api/beacons/{id}</td>
+            <td>
+<pre><code>{
+    "datetime_leave": "2020-04-26T09:28:43.511Z"
+}</code></pre>
+            </td>
+        </tr>
+        <tr class="table-danger">
+            <td>DELETE</td>
+            <td>/api/beacons/{id}</td>
+            <td><code>/api/beacons/1</code></td>
         </tr>
         </tbody>
     </table>
@@ -93,7 +144,7 @@
             <td>
 <pre><code>{
     "cafeteria_id": 2,
-    "name": "Soupe",
+    "name": "Soup",
     "price": 0.8
 }</code></pre>
             </td>

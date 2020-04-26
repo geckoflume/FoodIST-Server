@@ -1,6 +1,6 @@
 <?php
 
-include_once 'entities/PictureEntity.php';
+require 'entities/PictureEntity.php';
 
 function getPictures()
 {
@@ -82,8 +82,8 @@ function getPicture($id)
     $stmt = $picture->fetch($id);
     $stmt->execute();
 
-    // check if more than 0 record found
-    if ($stmt->rowCount() > 0) {
+    // check if 1 record found
+    if ($stmt->rowCount() == 1) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return new MyJsonResponse($row, 200);
     } else {

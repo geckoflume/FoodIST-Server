@@ -86,8 +86,8 @@ function getDish($id)
     $stmt = $dish->fetch($id);
     $stmt->execute();
 
-    // check if more than 0 record found
-    if ($stmt->rowCount() > 0) {
+    // check if 1 record found
+    if ($stmt->rowCount() == 1) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return new MyJsonResponse($row, 200);
     } else {
@@ -105,7 +105,6 @@ function postDish($data)
         $dish->price = $data["price"];
 
         $stmt = $dish->insertDish();
-        $stmt->execute();
 
         if ($stmt->execute()) {
             $dish = array(

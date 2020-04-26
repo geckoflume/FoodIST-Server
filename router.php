@@ -7,9 +7,10 @@ require_once(__DIR__ . '/utils/Database.php');
 require_once(__DIR__ . '/utils/PictureUploader.php');
 require_once(__DIR__ . '/utils/MyJsonResponse.php');
 require_once(__DIR__ . '/entities/BaseEntity.php');
-require_once(__DIR__ . '/dishes.php');
-require_once(__DIR__ . '/cafeterias.php');
-require_once(__DIR__ . '/pictures.php');
+require_once(__DIR__ . '/controllers/cafeterias.php');
+require_once(__DIR__ . '/controllers/beacons.php');
+require_once(__DIR__ . '/controllers/dishes.php');
+require_once(__DIR__ . '/controllers/pictures.php');
 
 error_reporting(E_ALL);
 
@@ -29,6 +30,52 @@ $app->before(function (Request $request) {
 $app->get('/api/', function () {
     return file_get_contents('index.html');
 });
+
+/**
+ * Cafeterias
+ */
+$app->get('/api/cafeterias', function () {
+    return getCafeterias();
+});
+
+$app->get('/api/cafeterias/{id}', function ($id) use ($app) {
+    return getCafeteria($id);
+})->assert('id', '\d+');
+
+$app->get('/api/cafeterias/{id}/beacons', function ($id) use ($app) {
+    return getBeaconsByCafeteria($id);
+})->assert('id', '\d+');
+
+$app->get('/api/cafeterias/{id}/dishes', function ($id) use ($app) {
+    return getDishesByCafeteria($id);
+})->assert('id', '\d+');
+
+
+/**
+ * Beacons
+ */
+$app->get('/api/beacons', function () {
+    return getBeacons();
+});
+
+$app->get('/api/beacons/{id}', function ($id) use ($app) {
+    return getBeacon($id);
+})->assert('id', '\d+');
+
+$app->put('/api/beacons/{id}', function (Request $request, $id) use ($app) {
+    $data = $request->request->all();
+    return updateBeacon($data, $id);
+})->assert('id', '\d+');
+
+$app->delete('/api/beacons/{id}', function ($id) use ($app) {
+    return deleteBeacon($id);
+})->assert('id', '\d+');
+
+$app->post('/api/beacons', function (Request $request) use ($app) {
+    $data = $request->request->all();
+    return postBeacon($data);
+});
+
 
 /**
  * Dishes
@@ -54,21 +101,6 @@ $app->post('/api/dishes', function (Request $request) use ($app) {
     $data = $request->request->all();
     return postDish($data);
 });
-
-/**
- * Cafeterias
- */
-$app->get('/api/cafeterias', function () {
-    return getCafeterias();
-});
-
-$app->get('/api/cafeterias/{id}', function ($id) use ($app) {
-    return getCafeteria($id);
-})->assert('id', '\d+');
-
-$app->get('/api/cafeterias/{id}/dishes', function ($id) use ($app) {
-    return getDishesByCafeteria($id);
-})->assert('id', '\d+');
 
 
 /**

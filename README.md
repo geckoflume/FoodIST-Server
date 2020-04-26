@@ -37,32 +37,47 @@ The server will be started on https://localhost/.
 Base api url: https://localhost/api
 
 ### Cafeterias
-| Method                     | Endpoint                    |
-|:-------------------------- |:--------------------------- |
-| GET                        | /api/cafeterias             |
-| GET                        | /api/cafeterias/{id}        |
-| GET                        | /api/cafeterias/{id}/dishes |
+| Method                     | Endpoint                     | Example                     |
+|:-------------------------- |:---------------------------- |:--------------------------- |
+| GET                        | /api/cafeterias              | `/api/cafeterias`           |
+| GET                        | /api/cafeterias/{id}         | `/api/cafeterias/1`         |
+| GET                        | /api/cafeterias/{id}/beacons | `/api/cafeterias/1/beacons` |
+| GET                        | /api/cafeterias/{id}/dishes  | `/api/cafeterias/1/dishes`  |
+
+### Beacons
+| Method                     | Endpoint                     | Example                                                               |
+|:-------------------------- |:---------------------------- |:--------------------------------------------------------------------- |
+| GET                        | /api/beacons                 |  `/api/beacons`                                                       |
+| POST                       | /api/beacons                 | `{"cafeteria_id": 12, "datetime_arrive": "2020-04-26T09:12:43.511Z"}` |
+| GET                        | /api/beacons/{id}            |  `/api/beacons/1`                                                     |
+| PUT                        | /api/beacons/{id}            | `{"datetime_leave": "2020-04-26T09:12:43.511Z"}`                      |
+| DELETE                     | /api/beacons/{id}            |  `/api/beacons/1`                                                     |
+
 
 ### Dishes
-| Method                     | Endpoint                    |
-|:-------------------------- |:--------------------------- |
-| GET                        | /api/dishes                 |
-| POST                       | /api/dishes                 |
-| GET                        | /api/dishes/{id}            |
-| PUT                        | /api/dishes/{id}            |
-| DELETE                     | /api/dishes/{id}            |
-| GET                        | /api/dishes/{id}/pictures   |
+| Method                     | Endpoint                     | Example                                                         |
+|:-------------------------- |:---------------------------- |:--------------------------------------------------------------- |
+| GET                        | /api/dishes                  |  `/api/dishes`                                                  |
+| POST                       | /api/dishes                  | `{"cafeteria_id": 12, "name": "Bacalhau à brás", "price": 1.4}` |
+| GET                        | /api/dishes/{id}             |  `/api/dishes/1`                                                |
+| PUT                        | /api/dishes/{id}             | `{"cafeteria_id": 2, "name": "Soup", "price": 0.8}`             |
+| DELETE                     | /api/dishes/{id}             |  `/api/dishes/1`                                                |
+| GET                        | /api/dishes/{id}/pictures    |  `/api/dishes/1/pictures`                                       |
 
 ### Pictures
-| Method                     | Endpoint                    |
-|:-------------------------- |:--------------------------- |
-| GET                        | /api/pictures               |
-| POST (multipart/form-data) | /api/pictures               |
-| GET                        | /api/pictures/{id}          |
-| DELETE                     | /api/pictures/{id}          |
+| Method                     | Endpoint                     | Example                                   |
+|:-------------------------- |:---------------------------- |:----------------------------------------- |
+| GET                        | /api/pictures                | `/api/pictures`                           |
+| POST (multipart/form-data) | /api/pictures                | `{"dish_id": 12, "picture": <JPEG file>}` |
+| GET                        | /api/pictures/{id}           |  `/api/pictures/1`                        |
+| DELETE                     | /api/pictures/{id}           |  `/api/pictures/1`                        |
 
 ## Valuable resources:
  - How to upload a file using a REST web service:
 	 - https://stackoverflow.com/a/4083908
 	 - https://symfonycasts.com/screencast/symfony-uploads/storing-uploaded-file
+	 
+ - MySQL and JSON date formats
+    - https://stackoverflow.com/a/409305
+    - https://xkcd.com/1179/
 
