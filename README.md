@@ -17,7 +17,7 @@ More information: https://fenix.tecnico.ulisboa.pt/disciplinas/CMov4/2019-2020/2
  - Fetch/add/delete picture dishes
  
 For usage, please read [How to use / Endpoints](#how-to-use--endpoints).  
-This project is deployed on [https://data.florianmornet.fr/api/](http://data.florianmornet.fr/api/), feel free to give it a try!
+This project is deployed on [https://data.florianmornet.fr/api/](https://data.florianmornet.fr/api/), feel free to give it a try!
 
 ## TODO
 
