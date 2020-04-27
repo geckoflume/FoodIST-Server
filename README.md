@@ -38,15 +38,15 @@ Data are stored in a MySQL database and can be updated using HTTP methods.
 ## How to setup
 
 - Run `composer install`.
-- Setup the [utils/PictureUploader.php](utils/PictureUploader.php) to define where the dish pictures will be stored.
-- Setup the [utils/Database.php](utils/Database.php) using your database connexion data.
-- Then, load the [init.sql](init.sql) script in your corresponding database (eg: `mysql -u root -p foodist < init.sql`).
+- Setup the [utils/PictureUploader.php] to define where the dish pictures will be stored.
+- Setup the [utils/Database.php] using your database connexion data.
+- Then, load the [init.sql] script in your corresponding database (eg: `mysql -u root -p foodist < init.sql`).
 - Finally, configure your web server as follow
 
 ### How to configure Apache
 
  - Check that your Apache configuration (eg: `/etc/apache2/apache2.conf`) has `AllowOverride` set to `All` for your server Directory
- - Use the provided [.htaccess](.htaccess), and modify the `FallbackResource` rule according to the **absolute** app path
+ - Use the provided [.htaccess], and modify the `FallbackResource` rule according to the **absolute** app path
 
 ### How to configure other web servers
 
@@ -54,8 +54,7 @@ https://silex.symfony.com/doc/2.0/web_servers.html
 
 ## How to use / Endpoints 
 
-The server will be started on https://localhost/.  
-Base api url: https://localhost/api
+The server will be started on https://localhost/, which is also the default base API url (if deployed in a subdirectory, do not forget to change the [.htaccess] file and [utils/PictureUploader.php] [accordingly](#how_to_setup)).
 
 ### Cafeterias
 
@@ -113,3 +112,7 @@ Base api url: https://localhost/api
  - Queuing theory
     - https://en.wikipedia.org/wiki/Queueing_theory
 
+[utils/PictureUploader.php]: utils/PictureUploader.php
+[utils/Database.php]: utils/Database.php
+[init.sql]: init.sql
+[.htaccess]: .htaccess
