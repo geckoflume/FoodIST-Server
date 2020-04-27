@@ -16,11 +16,12 @@ More information: https://fenix.tecnico.ulisboa.pt/disciplinas/CMov4/2019-2020/2
  - Fetch/add/delete/update dishes
  - Fetch/add/delete picture dishes
  
- For the usage, please read [How to use / Endpoints](#how-to-use-endpoints).
+For usage, please read [How to use / Endpoints](#how-to-use--endpoints).  
+This project is deployed on [https://data.florianmornet.fr/api/](http://data.florianmornet.fr/api/), feel free to give it a try!
 
 ## TODO
 
- - Add authentication and support for TLS/SSL with HTTPS
+ - Add authentication
 
 ## Specifications
 
@@ -30,19 +31,22 @@ Data are stored in a MySQL database and can be updated using HTTP methods.
 ## Prerequisites
 
 - A web server, can be Apache, nginx...
-- PHP 7
+- PHP >=7.2.5
 - A MySQL/MariaDB database
-- Composer
+- [Composer >=1.6.0](https://getcomposer.org/download/)
 
 ## How to setup
 
-- Load the [init.sql](init.sql) script in your corresponding database.
-- Then, setup the [utils/Database.php](utils/Database.php) using your database connexion data.
-- Finally, configure your web server :
+- Run `composer install`.
+- Setup the [utils/PictureUploader.php](utils/PictureUploader.php) to define where the dish pictures will be stored.
+- Setup the [utils/Database.php](utils/Database.php) using your database connexion data.
+- Then, load the [init.sql](init.sql) script in your corresponding database (eg: `mysql -u root -p foodist < init.sql`).
+- Finally, configure your web server as follow
 
 ### How to configure Apache
 
-Use the provided [.htaccess](.htaccess), and modify the `FallbackResource` rule according to the app path.
+ - Check that your Apache configuration (eg: `/etc/apache2/apache2.conf`) has `AllowOverride` set to `All` for your server Directory
+ - Use the provided [.htaccess](.htaccess), and modify the `FallbackResource` rule according to the **absolute** app path
 
 ### How to configure other web servers
 
@@ -94,6 +98,10 @@ Base api url: https://localhost/api
 
 ## Valuable resources
 
+ - REST basics in PHP:
+     - https://www.univ-orleans.fr/iut-orleans/informatique/intra/tuto/php/rest-api-php.html
+     - https://www.codeofaninja.com/2017/02/create-simple-rest-api-in-php.html
+     
  - How to upload a file using a REST web service:
 	 - https://stackoverflow.com/a/4083908
 	 - https://symfonycasts.com/screencast/symfony-uploads/storing-uploaded-file

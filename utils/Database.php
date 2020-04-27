@@ -6,7 +6,7 @@ class Database
     private $db_name = "foodist";
     private $username = "root";
     private $password = "";
-    public $conn;
+    private $conn;
 
     // get the database connection
     public function getConnection()

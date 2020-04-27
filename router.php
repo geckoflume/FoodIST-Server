@@ -27,26 +27,26 @@ $app->before(function (Request $request) {
 /**
  * Index page
  */
-$app->get('/api/', function () {
+$app->get('/', function () {
     return file_get_contents('index.html');
 });
 
 /**
  * Cafeterias
  */
-$app->get('/api/cafeterias', function () {
+$app->get('/cafeterias', function () {
     return getCafeterias();
 });
 
-$app->get('/api/cafeterias/{id}', function ($id) use ($app) {
+$app->get('/cafeterias/{id}', function ($id) use ($app) {
     return getCafeteria($id);
 })->assert('id', '\d+');
 
-$app->get('/api/cafeterias/{id}/beacons', function ($id) use ($app) {
+$app->get('/cafeterias/{id}/beacons', function ($id) use ($app) {
     return getBeaconsByCafeteria($id);
 })->assert('id', '\d+');
 
-$app->get('/api/cafeterias/{id}/dishes', function ($id) use ($app) {
+$app->get('/cafeterias/{id}/dishes', function ($id) use ($app) {
     return getDishesByCafeteria($id);
 })->assert('id', '\d+');
 
@@ -54,24 +54,24 @@ $app->get('/api/cafeterias/{id}/dishes', function ($id) use ($app) {
 /**
  * Beacons
  */
-$app->get('/api/beacons', function () {
+$app->get('/beacons', function () {
     return getBeacons();
 });
 
-$app->get('/api/beacons/{id}', function ($id) use ($app) {
+$app->get('/beacons/{id}', function ($id) use ($app) {
     return getBeacon($id);
 })->assert('id', '\d+');
 
-$app->put('/api/beacons/{id}', function (Request $request, $id) use ($app) {
+$app->put('/beacons/{id}', function (Request $request, $id) use ($app) {
     $data = $request->request->all();
     return updateBeacon($data, $id);
 })->assert('id', '\d+');
 /*
-$app->delete('/api/beacons/{id}', function ($id) use ($app) {
+$app->delete('/beacons/{id}', function ($id) use ($app) {
     return deleteBeacon($id);
 })->assert('id', '\d+');
 */
-$app->post('/api/beacons', function (Request $request) use ($app) {
+$app->post('/beacons', function (Request $request) use ($app) {
     $data = $request->request->all();
     return postBeacon($data);
 });
@@ -80,24 +80,24 @@ $app->post('/api/beacons', function (Request $request) use ($app) {
 /**
  * Dishes
  */
-$app->get('/api/dishes', function () {
+$app->get('/dishes', function () {
     return getDishes();
 });
 
-$app->get('/api/dishes/{id}', function ($id) use ($app) {
+$app->get('/dishes/{id}', function ($id) use ($app) {
     return getDish($id);
 })->assert('id', '\d+');
 
-$app->put('/api/dishes/{id}', function (Request $request, $id) use ($app) {
+$app->put('/dishes/{id}', function (Request $request, $id) use ($app) {
     $data = $request->request->all();
     return updateDish($data, $id);
 })->assert('id', '\d+');
 
-$app->delete('/api/dishes/{id}', function ($id) use ($app) {
+$app->delete('/dishes/{id}', function ($id) use ($app) {
     return deleteDish($id);
 })->assert('id', '\d+');
 
-$app->post('/api/dishes', function (Request $request) use ($app) {
+$app->post('/dishes', function (Request $request) use ($app) {
     $data = $request->request->all();
     return postDish($data);
 });
@@ -106,19 +106,19 @@ $app->post('/api/dishes', function (Request $request) use ($app) {
 /**
  * Pictures
  */
-$app->get('/api/pictures', function () {
+$app->get('/pictures', function () {
     return getPictures();
 });
 
-$app->get('/api/pictures/{id}', function ($id) use ($app) {
+$app->get('/pictures/{id}', function ($id) use ($app) {
     return getPicture($id);
 })->assert('id', '\d+');
 
-$app->delete('/api/pictures/{id}', function ($id) use ($app) {
+$app->delete('/pictures/{id}', function ($id) use ($app) {
     return deletePicture($id);
 })->assert('id', '\d+');
 
-$app->post('/api/pictures', function (Request $request) use ($app) {
+$app->post('/pictures', function (Request $request) use ($app) {
     $data = $request->request->all();
     $uploadedPicture = $request->files->get('picture');
 
@@ -130,7 +130,7 @@ $app->post('/api/pictures', function (Request $request) use ($app) {
     }
 });
 
-$app->get('/api/dishes/{id}/pictures', function ($id) use ($app) {
+$app->get('/dishes/{id}/pictures', function ($id) use ($app) {
     return getPicturesByDish($id);
 })->assert('id', '\d+');
 

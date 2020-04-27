@@ -1,10 +1,10 @@
-DROP DATABASE IF EXISTS foodist;
-CREATE DATABASE foodist;
+-- DROP DATABASE IF EXISTS foodist;
+-- CREATE DATABASE foodist;
 
--- DROP TABLE IF EXISTS beacons;
--- DROP TABLE IF EXISTS pictures;
--- DROP TABLE IF EXISTS dishes;
--- DROP TABLE IF EXISTS cafeterias;
+DROP TABLE IF EXISTS beacons;
+DROP TABLE IF EXISTS pictures;
+DROP TABLE IF EXISTS dishes;
+DROP TABLE IF EXISTS cafeterias;
 
 CREATE TABLE cafeterias
 (
