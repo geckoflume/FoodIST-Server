@@ -54,7 +54,7 @@ https://silex.symfony.com/doc/2.0/web_servers.html
 
 ## How to use / Endpoints 
 
-The server will be started on https://localhost/, which is also the default base API url (if deployed in a subdirectory, do not forget to change the [.htaccess] file and [utils/PictureUploader.php] [accordingly](#how_to_setup)).
+The server will be started on https://localhost/, which is also the default base API url (if deployed in a subdirectory, do not forget to update the [.htaccess] file and [utils/PictureUploader.php] [accordingly](#how_to_setup)).
 
 ### Cafeterias
 
