@@ -32,170 +32,178 @@
         <a href="https://app.getpostman.com/run-collection/419f476bdcd0fcbde597">
             <img src="https://run.pstmn.io/button.svg"></a>
     </div>
-    <table class="table table-bordered table-sm table-hove table-responsive">
-        <caption>Endpoints for cafeterias</caption>
-        <thead>
-        <tr>
-            <th style="width: 25%">Method</th>
-            <th style="width: 35%">Endpoint</th>
-            <th style="width: 40%">Example</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/cafeterias</td>
-            <td><code><a href="cafeterias">/api/cafeterias</a></code></td>
-        </tr>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/cafeterias/{id}</td>
-            <td><code><a href="cafeterias/1">/api/cafeterias/1</a></code></td>
-        </tr>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/cafeterias/{id}/beacons</td>
-            <td><code><a href="cafeterias/1/beacons">/api/cafeterias/1/beacons</a></code></td>
-        </tr>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/cafeterias/{id}/dishes</td>
-            <td><code><a href="cafeterias/1/dishes">/api/cafeterias/1/dishes</a></code></td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table table-bordered table-sm table-hove table-responsive">
-        <caption>Endpoints for beacons</caption>
-        <thead>
-        <tr>
-            <th style="width: 25%">Method</th>
-            <th style="width: 35%">Endpoint</th>
-            <th style="width: 40%">Example</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/beacons</td>
-            <td><code><a href="beacons">/api/beacons</a></code></td>
-        </tr>
-        <tr class="table-warning">
-            <td>POST</td>
-            <td>/api/beacons</td>
-            <td>
+    <div class="table-responsive">
+        <table class="table table-bordered table-sm table-hover">
+            <caption>Endpoints for cafeterias</caption>
+            <thead>
+            <tr>
+                <th style="width: 25%">Method</th>
+                <th style="width: 35%">Endpoint</th>
+                <th style="width: 40%">Example</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/cafeterias</td>
+                <td><code><a href="cafeterias">/api/cafeterias</a></code></td>
+            </tr>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/cafeterias/{id}</td>
+                <td><code><a href="cafeterias/1">/api/cafeterias/1</a></code></td>
+            </tr>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/cafeterias/{id}/beacons</td>
+                <td><code><a href="cafeterias/1/beacons">/api/cafeterias/1/beacons</a></code></td>
+            </tr>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/cafeterias/{id}/dishes</td>
+                <td><code><a href="cafeterias/1/dishes">/api/cafeterias/1/dishes</a></code></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-sm table-hover">
+            <caption>Endpoints for beacons</caption>
+            <thead>
+            <tr>
+                <th style="width: 25%">Method</th>
+                <th style="width: 35%">Endpoint</th>
+                <th style="width: 40%">Example</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/beacons</td>
+                <td><code><a href="beacons">/api/beacons</a></code></td>
+            </tr>
+            <tr class="table-warning">
+                <td>POST</td>
+                <td>/api/beacons</td>
+                <td>
 <pre><code>{
     "cafeteria_id": 12,
     "datetime_arrive": "2020-04-26T09:12:43.511Z"
 }</code></pre>
-            </td>
-        </tr>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/beacons/{id}</td>
-            <td><code><a href="beacons/1">/api/beacons/1</a></code></td>
-        </tr>
-        <tr class="table-primary">
-            <td>PUT</td>
-            <td>/api/beacons/{id}</td>
-            <td>
+                </td>
+            </tr>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/beacons/{id}</td>
+                <td><code><a href="beacons/1">/api/beacons/1</a></code></td>
+            </tr>
+            <tr class="table-primary">
+                <td>PUT</td>
+                <td>/api/beacons/{id}</td>
+                <td>
 <pre><code>{
     "datetime_leave": "2020-04-26T09:28:43.511Z"
 }</code></pre>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table table-bordered table-sm table-hove table-responsive">
-        <caption>Endpoints for dishes</caption>
-        <thead>
-        <tr>
-            <th style="width: 25%">Method</th>
-            <th style="width: 35%">Endpoint</th>
-            <th style="width: 40%">Example</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/dishes</td>
-            <td><code><a href="dishes">/api/dishes</a></code></td>
-        </tr>
-        <tr class="table-warning">
-            <td>POST</td>
-            <td>/api/dishes</td>
-            <td>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-sm table-hover">
+            <caption>Endpoints for dishes</caption>
+            <thead>
+            <tr>
+                <th style="width: 25%">Method</th>
+                <th style="width: 35%">Endpoint</th>
+                <th style="width: 40%">Example</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/dishes</td>
+                <td><code><a href="dishes">/api/dishes</a></code></td>
+            </tr>
+            <tr class="table-warning">
+                <td>POST</td>
+                <td>/api/dishes</td>
+                <td>
 <pre><code>{
     "cafeteria_id": 12,
     "name": "Bacalhau à brás",
     "price": 1.4
 }</code></pre>
-            </td>
-        </tr>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/dishes/{id}</td>
-            <td><code><a href="dishes/1">/api/dishes/1</a></code></td>
-        </tr>
-        <tr class="table-primary">
-            <td>PUT</td>
-            <td>/api/dishes/{id}</td>
-            <td>
+                </td>
+            </tr>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/dishes/{id}</td>
+                <td><code><a href="dishes/1">/api/dishes/1</a></code></td>
+            </tr>
+            <tr class="table-primary">
+                <td>PUT</td>
+                <td>/api/dishes/{id}</td>
+                <td>
 <pre><code>{
     "cafeteria_id": 2,
     "name": "Soup",
     "price": 0.8
 }</code></pre>
-            </td>
-        </tr>
-        <tr class="table-danger">
-            <td>DELETE</td>
-            <td>/api/dishes/{id}</td>
-            <td><code>/api/dishes/1</code></td>
-        </tr>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/dishes/{id}/pictures</td>
-            <td><code><a href="dishes/1/pictures">/api/dishes/1/pictures</a></code></td>
-        </tr>
-        </tbody>
-    </table>
-    <table class="table table-bordered table-sm table-hove table-responsive">
-        <caption>Endpoints for pictures</caption>
-        <thead>
-        <tr>
-            <th style="width: 25%">Method</th>
-            <th style="width: 35%">Endpoint</th>
-            <th style="width: 40%">Example</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/pictures</td>
-            <td><code><a href="pictures">/api/pictures</a></code></td>
-        </tr>
-        <tr class="table-warning">
-            <td>POST (multipart/form-data)</td>
-            <td>/api/pictures</td>
-            <td>
+                </td>
+            </tr>
+            <tr class="table-danger">
+                <td>DELETE</td>
+                <td>/api/dishes/{id}</td>
+                <td><code>/api/dishes/1</code></td>
+            </tr>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/dishes/{id}/pictures</td>
+                <td><code><a href="dishes/1/pictures">/api/dishes/1/pictures</a></code></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-sm table-hover">
+            <caption>Endpoints for pictures</caption>
+            <thead>
+            <tr>
+                <th style="width: 25%">Method</th>
+                <th style="width: 35%">Endpoint</th>
+                <th style="width: 40%">Example</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/pictures</td>
+                <td><code><a href="pictures">/api/pictures</a></code></td>
+            </tr>
+            <tr class="table-warning">
+                <td>POST (multipart/form-data)</td>
+                <td>/api/pictures</td>
+                <td>
 <pre><code>{
     "dish_id": 12,
     "picture": &lt;JPEG file&gt;
 }</code></pre>
-            </td>
-        </tr>
-        <tr class="table-success">
-            <td>GET</td>
-            <td>/api/pictures/{id}</td>
-            <td><code><a href="pictures/1">/api/pictures/1</a></code></td>
-        </tr>
-        <tr class="table-danger">
-            <td>DELETE</td>
-            <td>/api/pictures/{id}</td>
-            <td><code>/api/pictures/1</code></td>
-        </tr>
-        </tbody>
-    </table>
+                </td>
+            </tr>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/pictures/{id}</td>
+                <td><code><a href="pictures/1">/api/pictures/1</a></code></td>
+            </tr>
+            <tr class="table-danger">
+                <td>DELETE</td>
+                <td>/api/pictures/{id}</td>
+                <td><code>/api/pictures/1</code></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </main>
 </body>
 </html>
