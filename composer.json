@@ -2,6 +2,7 @@
   "require": {
     "silex/silex": "^2.0",
     "ext-json": "*",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "php-ai/php-ml": "^0.8.0"
   }
 }

@@ -1,5 +1,7 @@
 <?php
 
+use Phpml\Regression\LeastSquares;
+
 require 'entities/CafeteriaEntity.php';
 
 function getCafeterias()
@@ -62,36 +64,38 @@ function getCafeteria($id)
     }
 }
 
+function wrapValueInArray(&$item, $key)
+{
+    $item = array($item);
+}
+
 function computeWaitTime($cafeteria_id)
 {
-    // Fetch 10 last completed (which are no longer active) beacons rows
+    // Fetch all the completed (which are no longer active) beacons rows
     $beacon = new BeaconEntity();
 
-    $stmt = $beacon->averageData($cafeteria_id);
+    $stmt = $beacon->fetchAllByCafeteriaCompleted($cafeteria_id);
     $stmt->execute();
 
-    // check if 1 record found (should contain avg(duration) and avg(count_in_queue))
-    if ($stmt->rowCount() == 1) {
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    // check if more than 0 record found
+    if ($stmt->rowCount() > 0) {
+        $dataset = $stmt->fetchAll();
+        $targets = array_column($dataset, 'duration');
+        $samples = array_column($dataset, 'count_in_queue');
+        array_walk($samples, 'wrapValueInArray');
 
-        // this will make $row['name'] to just $name only
-        /**
-         * @var float $avg_duration
-         * @var float $avg_count_in_queue
-         */
-        extract($row);
+        // Compute the linear regression using the least squares method
+        $regression = new LeastSquares();
+        $regression->train($samples, $targets);
 
         // Fetch the number of users in queue (now)
         $stmtInQueue = $beacon->fetchAllByCafeteriaInQueue($cafeteria_id);
         $stmtInQueue->execute();
         $count_in_queue = $stmtInQueue->rowCount();
 
-        // Return the actual wait time ($t = $avg_duration * $count_in_queue / $avg_count_in_queue)
-        if ($avg_count_in_queue == 0) {
-            return 0;
-        } else {
-            return $avg_duration * $count_in_queue / $avg_count_in_queue;
-        }
+        // Return the actual wait time, predicted from the linear regression
+        return $regression->predict(array($count_in_queue));
+    } else {
+        return 0;
     }
-    return null; // should never happen
 }

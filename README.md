@@ -104,6 +104,9 @@ The server will be started on https://localhost/, which is also the default base
  - How to upload a file using a REST web service:
 	 - https://stackoverflow.com/a/4083908
 	 - https://symfonycasts.com/screencast/symfony-uploads/storing-uploaded-file
+
+ - REST JSON auth:
+ 	 - https://www.codeofaninja.com/2018/09/rest-api-authentication-example-php-jwt-tutorial.html
 	 
  - MySQL and JSON date formats:
     - https://stackoverflow.com/a/409305

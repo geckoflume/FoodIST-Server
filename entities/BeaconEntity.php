@@ -37,6 +37,17 @@ class BeaconEntity extends BaseEntity
         return $stmt;
     }
 
+    public function fetchAllByCafeteriaCompleted($cafeteria_id)
+    {
+        $query = "SELECT duration, count_in_queue FROM " . $this->table_name . " WHERE cafeteria_id = :cafeteria_id AND datetime_leave IS NOT NULL";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":cafeteria_id", $cafeteria_id);
+
+        return $stmt;
+    }
+
     public function insertBeacon()
     {
         $query = "INSERT INTO " . $this->table_name . "(cafeteria_id, datetime_arrive, count_in_queue) VALUES(:cafeteria_id, :datetime_arrive, :count_in_queue)";
@@ -59,24 +70,6 @@ class BeaconEntity extends BaseEntity
         $stmt->bindParam(":id", $this->id);
         $stmt->bindParam(":datetime_leave", $this->datetime_leave);
         $stmt->bindParam(":duration", $this->duration);
-
-        return $stmt;
-    }
-
-    public function averageData($cafeteria_id)
-    {
-        $query = "SELECT AVG(duration) as avg_duration, AVG(count_in_queue) as avg_count_in_queue
-                    FROM (
-                        SELECT duration, count_in_queue 
-                        FROM " . $this->table_name . " 
-                        WHERE cafeteria_id = :cafeteria_id AND datetime_leave IS NOT NULL 
-                        ORDER BY datetime_leave DESC, id DESC LIMIT :lastBeaconsNumberForAvg
-                        ) lastBeacons";
-
-        $stmt = $this->conn->prepare($query);
-
-        $stmt->bindParam(":cafeteria_id", $cafeteria_id);
-        $stmt->bindParam(":lastBeaconsNumberForAvg", $this->lastBeaconsNumberForAvg, PDO::PARAM_INT);
 
         return $stmt;
     }
