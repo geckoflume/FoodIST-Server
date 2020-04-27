@@ -1,1 +1,2 @@
-FallbackResource /router.php    # please be careful to set an absolute path
+# Please be careful to set an absolute path!
+FallbackResource /router.php
