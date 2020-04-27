@@ -107,6 +107,10 @@ function postBeacon($data)
         $beacon->cafeteria_id = $data["cafeteria_id"];
         $beacon->datetime_arrive = $data["datetime_arrive"];
 
+        $stmtInQueue = $beacon->fetchAllByCafeteriaInQueue($beacon->cafeteria_id);
+        $stmtInQueue->execute();
+        $beacon->count_in_queue = $stmtInQueue->rowCount();
+
         $stmt = $beacon->insertBeacon();
 
         if ($stmt->execute()) {
@@ -115,7 +119,8 @@ function postBeacon($data)
                 "cafeteria_id" => $beacon->cafeteria_id,
                 "datetime_arrive" => $beacon->datetime_arrive,
                 "datetime_leave" => $beacon->datetime_leave,
-                "duration" => $beacon->duration
+                "duration" => $beacon->duration,
+                "count_in_queue" => $beacon->count_in_queue
             );
             return new MyJsonResponse($beacon, 201);
         } // if unable to create the beacon
@@ -132,6 +137,7 @@ function updateBeacon($data, $id)
     $beacon = new BeaconEntity();
 
     if (!empty($id) && !empty($data["datetime_leave"])) {
+        // Need to fetch all fields to populate the BeaconEntity
         $stmt = $beacon->fetch($id);
         $stmt->execute();
 
@@ -144,6 +150,7 @@ function updateBeacon($data, $id)
              * @var string $datetime_arrive
              * @var string $datetime_leave
              * @var int $duration
+             * @var int $count_in_queue
              */
             extract($row);
 
@@ -151,10 +158,8 @@ function updateBeacon($data, $id)
                 $timestamp_arrive = (new DateTime($datetime_arrive))->getTimestamp();
                 $timestamp_leave = (new DateTime($data["datetime_leave"]))->getTimestamp();
                 $beacon->id = $id;
-                $beacon->cafeteria_id = $cafeteria_id;
-                $beacon->datetime_arrive = $datetime_arrive;
                 $beacon->datetime_leave = $data["datetime_leave"];
-                $beacon->duration = $timestamp_leave-$timestamp_arrive;
+                $beacon->duration = $timestamp_leave - $timestamp_arrive;
 
                 $stmt = $beacon->updateBeacon();
                 $stmt->execute();
@@ -162,10 +167,11 @@ function updateBeacon($data, $id)
                 if ($stmt->rowCount() == 1) {
                     $beacon = array(
                         "id" => $beacon->id,
-                        "cafeteria_id" => $beacon->cafeteria_id,
-                        "datetime_arrive" => $beacon->datetime_arrive,
+                        "cafeteria_id" => $cafeteria_id,
+                        "datetime_arrive" => $datetime_arrive,
                         "datetime_leave" => $beacon->datetime_leave,
-                        "duration" => $beacon->duration
+                        "duration" => $beacon->duration,
+                        "count_in_queue" => $count_in_queue
                     );
                     return new MyJsonResponse($beacon, 200);
                 } else {
@@ -183,7 +189,7 @@ function updateBeacon($data, $id)
         return new MyJsonResponse(array("message" => "Unable to update beacon. Data is incomplete."), 400);
     }
 }
-
+/*
 function deleteBeacon($id)
 {
     $beacon = new BeaconEntity();
@@ -198,3 +204,4 @@ function deleteBeacon($id)
         return new MyJsonResponse(array("message" => "No beacon found. This beacon was not deleted."), 404);
     }
 }
+*/

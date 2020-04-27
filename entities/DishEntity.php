@@ -12,7 +12,7 @@ class DishEntity extends BaseEntity
         $this->table_name = "dishes";
     }
 
-    function fetchAllByCafeteria($cafeteria_id)
+    public function fetchAllByCafeteria($cafeteria_id)
     {
         $query = "SELECT * FROM " . $this->table_name . " WHERE cafeteria_id = :cafeteria_id";
 
@@ -23,7 +23,7 @@ class DishEntity extends BaseEntity
         return $stmt;
     }
 
-    function insertDish()
+    public function insertDish()
     {
         $query = "INSERT INTO " . $this->table_name . "(cafeteria_id, name, price) VALUES(:cafeteria_id, :name, :price)";
 
@@ -36,7 +36,7 @@ class DishEntity extends BaseEntity
         return $stmt;
     }
 
-    function updateDish()
+    public function updateDish()
     {
         $query = "UPDATE " . $this->table_name . " SET cafeteria_id = :cafeteria_id, name = :name, price = :price WHERE id = :id";
 

@@ -11,19 +11,18 @@ class PictureEntity extends BaseEntity
         $this->table_name = "pictures";
     }
 
-    function fetchAllByDish($dish_id)
+    public function fetchAllByDish($dish_id)
     {
         $query = "SELECT * FROM " . $this->table_name . " WHERE dish_id = :dish_id";
 
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(":dish_id", $dish_id);
-
-
+        
         return $stmt;
     }
 
-    function insertPicture()
+    public function insertPicture()
     {
         $query = "INSERT INTO " . $this->table_name . "(dish_id, filename) VALUES(:dish_id, :filename)";
 
@@ -35,7 +34,7 @@ class PictureEntity extends BaseEntity
         return $stmt;
     }
 
-    function deleteAllByDishId($dish_id)
+    public function deleteAllByDishId($dish_id)
     {
         $query = "DELETE FROM " . $this->table_name . " WHERE dish_id = :dish_id";
 

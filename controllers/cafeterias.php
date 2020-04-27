@@ -24,7 +24,8 @@ function getCafeterias()
             extract($row);
 
             $cafeteria_item = array(
-                "id" => $id
+                "id" => $id,
+                "wait_time" => computeWaitTime($id)
             );
 
             array_push($cafeterias_arr, $cafeteria_item);
@@ -46,8 +47,51 @@ function getCafeteria($id)
     // check if 1 record found
     if ($stmt->rowCount() == 1) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new MyJsonResponse($row, 200);
+        // this will make $row['name'] to just $name only
+        /**
+         * @var int $id
+         */
+        extract($row);
+        $cafeteria_item = array(
+            "id" => $id,
+            "wait_time" => computeWaitTime($id)
+        );
+        return new MyJsonResponse($cafeteria_item, 200);
     } else {
         return new MyJsonResponse(array("message" => "No cafeteria found."), 404);
     }
+}
+
+function computeWaitTime($cafeteria_id)
+{
+    // Fetch 10 last completed (which are no longer active) beacons rows
+    $beacon = new BeaconEntity();
+
+    $stmt = $beacon->averageData($cafeteria_id);
+    $stmt->execute();
+
+    // check if 1 record found (should contain avg(duration) and avg(count_in_queue))
+    if ($stmt->rowCount() == 1) {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // this will make $row['name'] to just $name only
+        /**
+         * @var float $avg_duration
+         * @var float $avg_count_in_queue
+         */
+        extract($row);
+
+        // Fetch the number of users in queue (now)
+        $stmtInQueue = $beacon->fetchAllByCafeteriaInQueue($cafeteria_id);
+        $stmtInQueue->execute();
+        $count_in_queue = $stmtInQueue->rowCount();
+
+        // Return the actual wait time ($t = $avg_duration * $count_in_queue / $avg_count_in_queue)
+        if ($avg_count_in_queue == 0) {
+            return 0;
+        } else {
+            return $avg_duration * $count_in_queue / $avg_count_in_queue;
+        }
+    }
+    return null; // should never happen
 }

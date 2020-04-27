@@ -70,7 +70,7 @@ function getPicturesByDish($id)
         }
         return new MyJsonResponse($pictures_arr, 200);
     } else {
-        return new MyJsonResponse(array("message" => "No pictures found for this dish."), 404);
+        return new MyJsonResponse(array("message" => "No dish found or no pictures found for this dish."), 404);
     }
 }
 

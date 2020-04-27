@@ -36,6 +36,7 @@ CREATE TABLE beacons
     datetime_arrive varchar(30) NOT NULL,
     datetime_leave  varchar(30),
     duration        int(11),
+    count_in_queue  int(11)     NOT NULL,
     FOREIGN KEY (cafeteria_id) REFERENCES cafeterias (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;

@@ -66,11 +66,11 @@ $app->put('/api/beacons/{id}', function (Request $request, $id) use ($app) {
     $data = $request->request->all();
     return updateBeacon($data, $id);
 })->assert('id', '\d+');
-
+/*
 $app->delete('/api/beacons/{id}', function ($id) use ($app) {
     return deleteBeacon($id);
 })->assert('id', '\d+');
-
+*/
 $app->post('/api/beacons', function (Request $request) use ($app) {
     $data = $request->request->all();
     return postBeacon($data);

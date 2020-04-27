@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class PictureUploader
 {
     const BASE_URL = 'https://localhost/uploads/';
+
     private $newFilename;
 
     function __construct(UploadedFile $uploadedPicture)
