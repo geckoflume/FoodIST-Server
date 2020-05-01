@@ -28,7 +28,8 @@ $app->before(function (Request $request) {
  * Index page
  */
 $app->get('/', function () {
-    return file_get_contents('index.html');
+    include 'index.php';
+    return "";
 });
 
 /**

@@ -1,3 +1,46 @@
+<?php
+
+use Phpml\Regression\LeastSquares;
+
+$cafeteriaId = $_GET['cafeteriaId'] ?? '1';
+$scatter = "[]";
+$line = "[]";
+
+$stmt = (new BeaconEntity())->fetchAllByCafeteriaCompleted($cafeteriaId);
+$stmt->execute();
+
+if ($stmt->rowCount() > 0) {
+    $dataset = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $datasetJson = array_map(function ($tag) {
+        return array(
+            'x' => $tag['count_in_queue'],
+            'y' => $tag['duration']
+        );
+    }, $dataset);
+    $scatter = json_encode($datasetJson);
+
+    $samples = array_column($dataset, 'count_in_queue');
+    $targets = array_column($dataset, 'duration');
+    $max = max($samples);
+
+    if (count(array_unique($samples)) > 1) {
+        array_walk($samples, 'wrapValueInArray');
+        $regression = new LeastSquares();
+        $regression->train($samples, $targets);
+        $lineVal = array();
+        for ($i = 0; $i <= $max; $i++) {
+            $lineVal[$i]["x"] = $i;
+            $lineVal[$i]["y"] = $regression->predict(array($i));
+        }
+    } else {
+        $lineVal[] = array(
+            "x" => $samples[0],
+            "y" => array_sum($targets) / count($targets)
+        );
+    }
+    $line = json_encode($lineVal);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +59,12 @@
             text-align: left;
             margin-bottom: 0;
         }
+
+        .form-inline .form-group {
+            margin: 10px auto 20px;
+        }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
     <title>FoodIST REST Server</title>
 </head>
 <body>
@@ -32,6 +80,15 @@
         <a href="https://app.getpostman.com/run-collection/419f476bdcd0fcbde597">
             <img src="https://run.pstmn.io/button.svg"></a>
     </div>
+    <canvas id="cafeteriaChart"></canvas>
+    <form class="form-inline">
+        <div class="form-group">
+            <label for="inputCafeteria">Cafeteria ID</label>
+            <input type="number" class="form-control mx-md-3" id="inputCafeteria" name="cafeteriaId"
+                   value="<?php echo $cafeteriaId ?>" placeholder="Cafeteria ID" min="1" max="15" required>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
     <div class="table-responsive">
         <table class="table table-bordered table-sm table-hover">
             <caption>Endpoints for cafeterias</caption>
@@ -205,5 +262,74 @@
         </table>
     </div>
 </main>
+<script>
+    let ctx = document.getElementById('cafeteriaChart');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            datasets: [{
+                label: 'Time spent in the queue (from db)',
+                data: <?php echo $scatter ?>,
+                showLine: false,
+                pointBackgroundColor: 'rgba(54, 162, 235, 0.2)',
+                pointBorderColor: 'rgba(54, 162, 235, 1)',
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)'
+            },
+                {
+                    label: 'Expected time spent in the queue (linear regression)',
+                    data: <?php echo $line ?>,
+                    fill: false,
+                    pointBackgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    pointBorderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)'
+                }]
+        },
+        options: {
+            scales: {
+                xAxes: [{
+                    type: 'linear',
+                    position: 'bottom',
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0,
+                        suggestedMin: 0
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: '# of users in queue at the time the user posted a request to the server'
+                    }
+                }],
+                yAxes: [{
+                    ticks: {
+                        precision: 0
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Time the user stayed in queue (in seconds)'
+                    }
+                }]
+            },
+            title: {
+                display: true,
+                text: 'Wait time per waiting users count for cafeteria #<?php echo $cafeteriaId ?>'
+            },
+            tooltips: {
+                enabled: true,
+                mode: 'single',
+                callbacks: {
+                    title: function (tooltipItems, data) {
+                        return tooltipItems[0].xLabel + " user(s) in queue";
+                    },
+                    label: function (tooltipItems, data) {
+                        return tooltipItems.yLabel + 's wait time';
+                    }
+                }
+            },
+            responsive: true
+        }
+    });
+</script>
 </body>
 </html>
