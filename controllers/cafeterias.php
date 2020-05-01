@@ -80,21 +80,28 @@ function computeWaitTime($cafeteria_id)
     // check if more than 0 record found
     if ($stmt->rowCount() > 0) {
         $dataset = $stmt->fetchAll();
-        $targets = array_column($dataset, 'duration');
         $samples = array_column($dataset, 'count_in_queue');
-        array_walk($samples, 'wrapValueInArray');
+        $targets = array_column($dataset, 'duration');
 
-        // Compute the linear regression using the least squares method
-        $regression = new LeastSquares();
-        $regression->train($samples, $targets);
+        // In the particular case where we only have rows whose count_in_queue values are the same,
+        // we cannot compute a regression line. Then, we return the mean value for the durations.
+        if (count(array_unique($samples)) > 1) {
+            array_walk($samples, 'wrapValueInArray');
 
-        // Fetch the number of users in queue (now)
-        $stmtInQueue = $beacon->fetchAllByCafeteriaInQueue($cafeteria_id);
-        $stmtInQueue->execute();
-        $count_in_queue = $stmtInQueue->rowCount();
+            // Compute the linear regression using the least squares method
+            $regression = new LeastSquares();
+            $regression->train($samples, $targets);
 
-        // Return the actual wait time, predicted from the linear regression
-        return $regression->predict(array($count_in_queue));
+            // Fetch the number of users in queue (now)
+            $stmtInQueue = $beacon->fetchAllByCafeteriaInQueue($cafeteria_id);
+            $stmtInQueue->execute();
+            $count_in_queue = $stmtInQueue->rowCount();
+
+            // Return the actual wait time, predicted from the linear regression
+            return $regression->predict(array($count_in_queue));
+        } else {
+            return array_sum($targets) / count($targets);
+        }
     } else {
         return 0;
     }
