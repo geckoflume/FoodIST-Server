@@ -320,10 +320,14 @@ if ($stmt->rowCount() > 0) {
                 mode: 'single',
                 callbacks: {
                     title: function (tooltipItems, data) {
-                        return tooltipItems[0].xLabel + " user(s) in queue";
+                        return tooltipItems[0].xLabel + " user" + ((tooltipItems[0].xLabel > 1) ? "s" : "") + " in queue";
                     },
                     label: function (tooltipItems, data) {
-                        return tooltipItems.yLabel + 's wait time';
+                        if (tooltipItems.yLabel === Math.ceil(tooltipItems.yLabel))
+                            return tooltipItems.yLabel + 's wait time';
+                        else
+                            // use bitwise xor to cast to int (https://stackoverflow.com/a/8388483)
+                            return tooltipItems.yLabel + 's wait time (rounded as ' + (Math.ceil(tooltipItems.yLabel) | 0) + 's)';
                     }
                 }
             },

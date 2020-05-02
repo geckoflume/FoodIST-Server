@@ -64,7 +64,7 @@ function getCafeteria($id)
     }
 }
 
-function wrapValueInArray(&$item, $key)
+function wrapValueInArray(&$item)
 {
     $item = array($item);
 }
@@ -98,10 +98,11 @@ function computeWaitTime($cafeteria_id)
             $count_in_queue = $stmtInQueue->rowCount();
 
             // Return the actual wait time, predicted from the linear regression
-            return $regression->predict(array($count_in_queue));
+            $ret = $regression->predict(array($count_in_queue));
         } else {
-            return array_sum($targets) / count($targets);
+            $ret = array_sum($targets) / count($targets);
         }
+        return intval(ceil($ret));
     } else {
         return 0;
     }
