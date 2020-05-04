@@ -1,5 +1,6 @@
 -- DROP DATABASE IF EXISTS foodist;
 -- CREATE DATABASE foodist;
+ALTER DATABASE foodist CHARACTER SET = utf8mb4 COLLATE = utf8mb4_bin;
 
 DROP TABLE IF EXISTS beacons;
 DROP TABLE IF EXISTS pictures;
@@ -10,7 +11,7 @@ CREATE TABLE cafeterias
 (
     id int(11) PRIMARY KEY AUTO_INCREMENT
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
 
 INSERT INTO cafeterias (id)
 VALUES (1),
@@ -39,7 +40,7 @@ CREATE TABLE beacons
     count_in_queue  int(11)     NOT NULL,
     FOREIGN KEY (cafeteria_id) REFERENCES cafeterias (id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
 
 CREATE TABLE dishes
 (
@@ -49,13 +50,13 @@ CREATE TABLE dishes
     price        float        NOT NULL,
     FOREIGN KEY (cafeteria_id) REFERENCES cafeterias (id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
 
 CREATE TABLE pictures
 (
     id       int(11) PRIMARY KEY AUTO_INCREMENT,
     dish_id  int(11)             NOT NULL,
-    filename varchar(255) UNIQUE NOT NULL,
+    filename varchar(191) UNIQUE NOT NULL,
     FOREIGN KEY (dish_id) REFERENCES dishes (id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
