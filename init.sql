@@ -11,7 +11,8 @@ CREATE TABLE cafeterias
 (
     id int(11) PRIMARY KEY AUTO_INCREMENT
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
+  DEFAULT CHARSET = utf8mb4
+  COLLATE utf8mb4_bin;
 
 INSERT INTO cafeterias (id)
 VALUES (1),
@@ -28,7 +29,8 @@ VALUES (1),
        (12),
        (13),
        (14),
-       (15);
+       (15),
+       (16);
 
 CREATE TABLE beacons
 (
@@ -40,7 +42,8 @@ CREATE TABLE beacons
     count_in_queue  int(11)     NOT NULL,
     FOREIGN KEY (cafeteria_id) REFERENCES cafeterias (id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
+  DEFAULT CHARSET = utf8mb4
+  COLLATE utf8mb4_bin;
 
 CREATE TABLE dishes
 (
@@ -50,7 +53,8 @@ CREATE TABLE dishes
     price        float        NOT NULL,
     FOREIGN KEY (cafeteria_id) REFERENCES cafeterias (id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
+  DEFAULT CHARSET = utf8mb4
+  COLLATE utf8mb4_bin;
 
 CREATE TABLE pictures
 (
@@ -59,4 +63,5 @@ CREATE TABLE pictures
     filename varchar(191) UNIQUE NOT NULL,
     FOREIGN KEY (dish_id) REFERENCES dishes (id)
 ) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COLLATE utf8mb4_bin;
+  DEFAULT CHARSET = utf8mb4
+  COLLATE utf8mb4_bin;
