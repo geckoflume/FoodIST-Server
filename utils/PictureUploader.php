@@ -4,13 +4,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class PictureUploader
 {
+    public static $destination = __DIR__ . '/../uploads';
     private $newFilename;
 
     function __construct(UploadedFile $uploadedPicture)
     {
-        $destination = __DIR__ . '/../uploads';
         $this->newFilename = uniqid() . '.' . $uploadedPicture->guessExtension();
-        $uploadedPicture->move($destination, $this->newFilename);
+        $uploadedPicture->move(PictureUploader::$destination, $this->newFilename);
     }
 
     function getNewFilename()

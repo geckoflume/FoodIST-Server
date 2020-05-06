@@ -122,13 +122,27 @@ function deletePicture($id)
 {
     $picture = new PictureEntity();
 
-    // query pictures
-    $stmt = $picture->delete($id);
+    // query picture
+    $stmt = $picture->fetch($id);
     $stmt->execute();
 
-    // check if more than 0 record found
+    // check if 1 record found
     if ($stmt->rowCount() == 1) {
-        return new MyJsonResponse(array("message" => "Picture deleted."), 200);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $file = PictureUploader::$destination . '/' . $row['filename'];
+
+        // query picture for deletion
+        $stmt = $picture->delete($id);
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 1) {
+            // delete picture from filesystem
+            if (file_exists($file))
+                unlink($file);
+            return new MyJsonResponse(array("message" => "Picture deleted."), 200);
+        } else {
+            return new MyJsonResponse(array("message" => "No picture found. This picture was not deleted."), 404);
+        }
     } else {
         return new MyJsonResponse(array("message" => "No picture found. This picture was not deleted."), 404);
     }
