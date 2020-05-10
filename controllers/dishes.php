@@ -23,6 +23,12 @@ function getDishes()
              * @var int $cafeteria_id
              * @var string $name
              * @var double $price
+             * @var bool $have_info
+             * @var bool $meat
+             * @var bool $fish
+             * @var bool $vegetarian
+             * @var bool $vegan
+             * @var string $dietary_data
              */
             extract($row);
 
@@ -30,7 +36,13 @@ function getDishes()
                 "id" => $id,
                 "cafeteria_id" => $cafeteria_id,
                 "name" => $name,
-                "price" => $price
+                "price" => $price,
+                "have_info" => (bool)$have_info,
+                "meat" => (bool)$meat,
+                "fish" => (bool)$fish,
+                "vegetarian" => (bool)$vegetarian,
+                "vegan" => (bool)$vegan,
+                "dietary_data" => $dietary_data
             );
 
             array_push($dishes_arr, $dish_item);
@@ -74,11 +86,11 @@ function getDishesByCafeteria($id)
                 "cafeteria_id" => $cafeteria_id,
                 "name" => $name,
                 "price" => $price,
-                "have_info" => $have_info,
-                "meat" => $meat,
-                "fish" => $fish,
-                "vegetarian" => $vegetarian,
-                "vegan" => $vegan,
+                "have_info" => (bool)$have_info,
+                "meat" => (bool)$meat,
+                "fish" => (bool)$fish,
+                "vegetarian" => (bool)$vegetarian,
+                "vegan" => (bool)$vegan,
                 "dietary_data" => $dietary_data
             );
 
@@ -101,7 +113,34 @@ function getDish($id)
     // check if 1 record found
     if ($stmt->rowCount() == 1) {
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        return new MyJsonResponse($row, 200);
+
+        // this will make $row['name'] to just $name only
+        /**
+         * @var int $id
+         * @var int $cafeteria_id
+         * @var string $name
+         * @var double $price
+         * @var bool $have_info
+         * @var bool $meat
+         * @var bool $fish
+         * @var bool $vegetarian
+         * @var bool $vegan
+         * @var string $dietary_data
+         */
+        extract($row);
+        $dish_item = array(
+            "id" => $id,
+            "cafeteria_id" => $cafeteria_id,
+            "name" => $name,
+            "price" => $price,
+            "have_info" => (bool)$have_info,
+            "meat" => (bool)$meat,
+            "fish" => (bool)$fish,
+            "vegetarian" => (bool)$vegetarian,
+            "vegan" => (bool)$vegan,
+            "dietary_data" => $dietary_data
+        );
+        return new MyJsonResponse($dish_item, 200);
     } else {
         return new MyJsonResponse(array("message" => "No dish found."), 404);
     }
@@ -131,11 +170,11 @@ function postDish($data)
                 "cafeteria_id" => $dish->cafeteria_id,
                 "name" => $dish->name,
                 "price" => $dish->price,
-                "have_info" => $dish->have_info,
-                "meat" => $dish->meat,
-                "fish" => $dish->fish,
-                "vegetarian" => $dish->vegetarian,
-                "vegan" => $dish->vegan,
+                "have_info" => (bool)$dish->have_info,
+                "meat" => (bool)$dish->meat,
+                "fish" => (bool)$dish->fish,
+                "vegetarian" => (bool)$dish->vegetarian,
+                "vegan" => (bool)$dish->vegan,
                 "dietary_data" => $dish->dietary_data
             );
             return new MyJsonResponse($dish, 201);
@@ -174,11 +213,11 @@ function updateDish($data, $id)
                 "cafeteria_id" => $dish->cafeteria_id,
                 "name" => $dish->name,
                 "price" => $dish->price,
-                "have_info" => $dish->have_info,
-                "meat" => $dish->meat,
-                "fish" => $dish->fish,
-                "vegetarian" => $dish->vegetarian,
-                "vegan" => $dish->vegan,
+                "have_info" => (bool)$dish->have_info,
+                "meat" => (bool)$dish->meat,
+                "fish" => (bool)$dish->fish,
+                "vegetarian" => (bool)$dish->vegetarian,
+                "vegan" => (bool)$dish->vegan,
                 "dietary_data" => $dish->dietary_data
             );
             return new MyJsonResponse($dish, 200);
