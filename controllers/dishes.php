@@ -60,6 +60,12 @@ function getDishesByCafeteria($id)
              * @var int $cafeteria_id
              * @var string $name
              * @var double $price
+             * @var bool $have_info
+             * @var bool $meat
+             * @var bool $fish
+             * @var bool $vegetarian
+             * @var bool $vegan
+             * @var string $dietary_data
              */
             extract($row);
 
@@ -67,7 +73,13 @@ function getDishesByCafeteria($id)
                 "id" => $id,
                 "cafeteria_id" => $cafeteria_id,
                 "name" => $name,
-                "price" => $price
+                "price" => $price,
+                "have_info" => $have_info,
+                "meat" => $meat,
+                "fish" => $fish,
+                "vegetarian" => $vegetarian,
+                "vegan" => $vegan,
+                "dietary_data" => $dietary_data
             );
 
             array_push($dishes_arr, $dish_item);
@@ -98,11 +110,18 @@ function getDish($id)
 function postDish($data)
 {
     $dish = new DishEntity();
-
-    if (!empty($data["cafeteria_id"]) && !empty($data["name"]) && !empty($data["price"])) {
+    if (isset($data["cafeteria_id"]) && isset($data["name"]) && isset($data["price"]) && isset($data["have_info"])
+        && isset($data["meat"]) && isset($data["fish"]) && isset($data["vegetarian"]) && isset($data["vegan"]) && isset($data["dietary_data"])) {
         $dish->cafeteria_id = $data["cafeteria_id"];
         $dish->name = $data["name"];
         $dish->price = $data["price"];
+        $dish->have_info = $data["have_info"];
+        $dish->meat = $data["meat"];
+        $dish->fish = $data["fish"];
+        $dish->vegetarian = $data["vegetarian"];
+        $dish->vegan = $data["vegan"];
+        $dish->dietary_data = $data["dietary_data"];
+
 
         $stmt = $dish->insertDish();
 
@@ -111,7 +130,13 @@ function postDish($data)
                 "id" => $dish->conn->lastInsertId(),
                 "cafeteria_id" => $dish->cafeteria_id,
                 "name" => $dish->name,
-                "price" => $dish->price
+                "price" => $dish->price,
+                "have_info" => $dish->have_info,
+                "meat" => $dish->meat,
+                "fish" => $dish->fish,
+                "vegetarian" => $dish->vegetarian,
+                "vegan" => $dish->vegan,
+                "dietary_data" => $dish->dietary_data
             );
             return new MyJsonResponse($dish, 201);
         } // if unable to create the dish
@@ -127,11 +152,18 @@ function updateDish($data, $id)
 {
     $dish = new DishEntity();
 
-    if (!empty($id) && (!empty($data["cafeteria_id"]) || !empty($data["name"]) || !empty($data["price"]))) {
+    if (isset($id) && ((isset($data["cafeteria_id"]) || isset($data["name"]) || isset($data["price"]) || isset($data["have_info"])
+            || isset($data["meat"]) || isset($data["fish"]) || isset($data["vegetarian"]) || isset($data["vegan"]) || isset($data["dietary_data"])))) {
         $dish->id = $id;
         $dish->cafeteria_id = $data["cafeteria_id"];
         $dish->name = $data["name"];
         $dish->price = $data["price"];
+        $dish->have_info = $data["have_info"];
+        $dish->meat = $data["meat"];
+        $dish->fish = $data["fish"];
+        $dish->vegetarian = $data["vegetarian"];
+        $dish->vegan = $data["vegan"];
+        $dish->dietary_data = $data["dietary_data"];
 
         $stmt = $dish->updateDish();
         $stmt->execute();
@@ -141,7 +173,13 @@ function updateDish($data, $id)
                 "id" => $dish->id,
                 "cafeteria_id" => $dish->cafeteria_id,
                 "name" => $dish->name,
-                "price" => $dish->price
+                "price" => $dish->price,
+                "have_info" => $dish->have_info,
+                "meat" => $dish->meat,
+                "fish" => $dish->fish,
+                "vegetarian" => $dish->vegetarian,
+                "vegan" => $dish->vegan,
+                "dietary_data" => $dish->dietary_data
             );
             return new MyJsonResponse($dish, 200);
         } else {

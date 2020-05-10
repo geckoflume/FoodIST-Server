@@ -51,6 +51,12 @@ CREATE TABLE dishes
     cafeteria_id int(11)      NOT NULL,
     name         varchar(255) NOT NULL,
     price        float        NOT NULL,
+    have_info bool NOT NULL,
+    meat bool NOT NULL,
+    fish bool NOT NULL,
+    vegetarian bool NOT NULL,
+    vegan bool NOT NULL,
+    dietary_data varchar(255) NOT NULL,
     FOREIGN KEY (cafeteria_id) REFERENCES cafeterias (id)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8mb4

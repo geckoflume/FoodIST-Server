@@ -205,7 +205,13 @@ if ($stmt->rowCount() > 0) {
 <pre><code>{
     "cafeteria_id": 2,
     "name": "Soup",
-    "price": 0.8
+    "price": 0.8,
+    "have_info": true,
+    "meat": false,
+    "fish": true,
+    "vegetarian": false,
+    "vegan": false,
+    "dietary_data": "This contains fish"
 }</code></pre>
                 </td>
             </tr>

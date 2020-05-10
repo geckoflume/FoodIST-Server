@@ -85,7 +85,7 @@ The server will be started on https://localhost/, which is also the default base
 | Method                     | Endpoint                     | Example                                                         |
 |:-------------------------- |:---------------------------- |:--------------------------------------------------------------- |
 | GET                        | /api/dishes                  | `/api/dishes`                                                   |
-| POST                       | /api/dishes                  | `{"cafeteria_id": 12, "name": "Bacalhau à brás", "price": 1.4}` |
+| POST                       | /api/dishes                  | `{"cafeteria_id": 12, "name": "Bacalhau à brás", "price": 1.4}, "have_info": true,"meat": false, "fish": true, "vegetarian": false, "vegan": false, "dietary_data": "This contains fish"` |
 | GET                        | /api/dishes/{id}             | `/api/dishes/1`                                                 |
 | PUT                        | /api/dishes/{id}             | `{"cafeteria_id": 2, "name": "Soup", "price": 0.8}`             |
 | DELETE                     | /api/dishes/{id}             | `/api/dishes/1`                                                 |
