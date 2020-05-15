@@ -111,6 +111,10 @@ $app->get('/pictures', function () {
     return getPictures();
 });
 
+$app->get('/pictures/first', function () {
+    return getFirstPictures();
+});
+
 $app->get('/pictures/{id}', function ($id) use ($app) {
     return getPicture($id);
 })->assert('id', '\d+');

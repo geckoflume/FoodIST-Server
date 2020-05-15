@@ -39,6 +39,43 @@ function getPictures()
     }
 }
 
+function getFirstPictures()
+{
+    $picture = new PictureEntity();
+
+    // query pictures
+    $stmt = $picture->fetchAllFirst(3);
+    $stmt->execute();
+
+    // check if more than 0 record found
+    if ($stmt->rowCount() > 0) {
+        $pictures_arr = array();
+
+        // fetch() is faster than fetchAll()
+        // http://stackoverflow.com/questions/2770630/pdofetchall-vs-pdofetch-in-a-loop
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            // this will make $row['name'] to just $name only
+            /**
+             * @var int $id
+             * @var int $dish_id
+             * @var string $filename
+             */
+            extract($row);
+
+            $picture_item = array(
+                "id" => $id,
+                "dish_id" => $dish_id,
+                "filename" => $filename
+            );
+
+            array_push($pictures_arr, $picture_item);
+        }
+        return new MyJsonResponse($pictures_arr, 200);
+    } else {
+        return new MyJsonResponse(array("message" => "No pictures found."), 404);
+    }
+}
+
 function getPicturesByDish($id)
 {
     $picture = new PictureEntity();

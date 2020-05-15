@@ -244,6 +244,11 @@ if ($stmt->rowCount() > 0) {
                 <td>/api/pictures</td>
                 <td><code><a href="pictures">/api/pictures</a></code></td>
             </tr>
+            <tr class="table-success">
+                <td>GET</td>
+                <td>/api/pictures/first</td>
+                <td><code><a href="pictures/first">/api/pictures/first</a></code></td>
+            </tr>
             <tr class="table-warning">
                 <td>POST (multipart/form-data)</td>
                 <td>/api/pictures</td>

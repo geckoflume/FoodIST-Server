@@ -18,7 +18,18 @@ class PictureEntity extends BaseEntity
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(":dish_id", $dish_id);
-        
+
+        return $stmt;
+    }
+
+    public function fetchAllFirst($pictures_count)
+    {
+        $query = "SELECT id, dish_id, filename FROM (SELECT *, ROW_NUMBER() OVER(PARTITION BY dish_id ORDER BY id) rn FROM " . $this->table_name . ") r WHERE rn <= :pictures_count";
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":pictures_count", $pictures_count);
+
         return $stmt;
     }
 

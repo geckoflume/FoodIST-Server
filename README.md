@@ -96,6 +96,7 @@ The server will be started on https://localhost/, which is also the default base
 | Method                     | Endpoint                     | Example                                   |
 |:-------------------------- |:---------------------------- |:----------------------------------------- |
 | GET                        | /api/pictures                | `/api/pictures`                           |
+| GET                        | /api/pictures/first          | `/api/pictures/first`                           |
 | POST (multipart/form-data) | /api/pictures                | `{"dish_id": 12, "picture": <JPEG file>}` |
 | GET                        | /api/pictures/{id}           | `/api/pictures/1`                         |
 | DELETE                     | /api/pictures/{id}           | `/api/pictures/1`                         |
