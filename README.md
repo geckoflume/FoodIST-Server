@@ -1,8 +1,9 @@
-# FoodIST-Server: Finding food on campus [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/419f476bdcd0fcbde597)
+# FoodIST-Server: Finding food on campus
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/419f476bdcd0fcbde597)
  
 FoodIST server module, providing a REST API HTTPS server for Mobile and Ubiquitous Computing class @ Instituto Superior Técnico, Lisbon, Portugal.
 
-Meant to be used with the [FoodIST Android application](https://github.com/geckoflume/FoodIST), it provides ability to crowdsource cafeteria menus, dishes pictures and queue wait times.
+Meant to be used with the [FoodIST Android application](https://github.com/geckoflume/FoodIST), it provides the ability to crowdsource cafeteria menus, dishes pictures and queue wait times.
 
 More information: https://fenix.tecnico.ulisboa.pt/disciplinas/CMov4/2019-2020/2-semestre
 
@@ -46,7 +47,7 @@ Data are stored in a MySQL database and can be updated using HTTP methods.
 - Setup the [utils/PictureUploader.php] to define where the dish pictures will be stored.
 - Setup the [utils/Database.php] using your database connexion data.
 - Then, load the [init.sql] script in your corresponding database (eg: `mysql -u root -p foodist < init.sql`).
-- Finally, configure your web server as follow
+- Finally, configure your web server as following
 
 ### How to configure Apache
 
@@ -59,7 +60,7 @@ https://silex.symfony.com/doc/2.0/web_servers.html
 
 ## How to use / Endpoints 
 
-The server will be started on https://localhost/, which is also the default base API url (if deployed in a subdirectory, do not forget to update the [.htaccess] file and [utils/PictureUploader.php] [accordingly](#how_to_setup)).
+The server will be started on https://localhost/, which is also the default base API URL (if deployed in a subdirectory, do not forget to update the [.htaccess] file and [utils/PictureUploader.php] [accordingly](#how_to_setup)).
 
 ### Cafeterias
 
