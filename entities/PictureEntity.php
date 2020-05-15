@@ -24,7 +24,8 @@ class PictureEntity extends BaseEntity
 
     public function fetchAllFirst($pictures_count)
     {
-        $query = "SELECT id, dish_id, filename FROM (SELECT *, ROW_NUMBER() OVER(PARTITION BY dish_id ORDER BY id) rn FROM " . $this->table_name . ") r WHERE rn <= :pictures_count";
+        // See https://stackoverflow.com/a/33767662
+        $query = "SELECT id, dish_id, filename FROM (SELECT *, @rn := IF(@cat = dish_id, @rn+1, IF(@cat := dish_id, 1, 1)) AS rn FROM " . $this->table_name . " CROSS JOIN (SELECT @rn := 0, @cat := '') AS vars ORDER BY id) AS t WHERE rn <= :pictures_count";
 
         $stmt = $this->conn->prepare($query);
 
